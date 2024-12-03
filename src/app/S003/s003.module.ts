@@ -11,7 +11,6 @@ import { GetMasterPreviewComponent } from '../commons/get-master-preview/get-mas
 
 @NgModule({
   declarations: [
-
   ],
   imports: [
     CommonModule,

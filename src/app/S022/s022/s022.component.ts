@@ -179,7 +179,7 @@ const ELEMENT_DATA: Element[] = [
   },
 ];
 @Component({
-  selector: 'app-s003',
+  selector: 'app-s022',
   standalone: true,
   imports: [
     MaterialModule,
@@ -189,11 +189,11 @@ const ELEMENT_DATA: Element[] = [
     GetMasterDataComponent,
     GetMasterUpdateComponent,
     GetMasterPreviewComponent,
-],
-  templateUrl: './s003.component.html',
-  styleUrl: './s003.component.css',
+  ],
+  templateUrl: './s022.component.html',
+  styleUrl: './s022.component.css'
 })
-export class S003Component implements OnInit {
+export class S022Component implements OnInit {
   mPageFlg: boolean = false; 
 
 

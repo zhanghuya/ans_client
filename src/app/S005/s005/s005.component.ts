@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild , QueryList, ViewChildren, AfterViewInit} from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 
@@ -10,11 +10,7 @@ import moment from 'moment';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer'
-import { GetMasterDataComponent } from '../../commons/get-master-data/get-master-data.component';
-import { GetMasterUpdateComponent } from '../../commons/get-master-update/get-master-update.component';
-import { GetMasterPreviewComponent } from '../../commons/get-master-preview/get-master-preview.component';
 import { Router } from '@angular/router';
-import { ActivatedRoute } from '@angular/router';
 
 export interface Element {
   type_flg: string;
@@ -179,43 +175,22 @@ const ELEMENT_DATA: Element[] = [
   },
 ];
 @Component({
-  selector: 'app-s003',
+  selector: 'app-s005',
   standalone: true,
   imports: [
     MaterialModule,
     FormsModule,
     CommonModule,
-    NgxExtendedPdfViewerModule,
-    GetMasterDataComponent,
-    GetMasterUpdateComponent,
-    GetMasterPreviewComponent,
-],
-  templateUrl: './s003.component.html',
-  styleUrl: './s003.component.css',
+    NgxExtendedPdfViewerModule],
+  templateUrl: './s005.component.html',
+  styleUrl: './s005.component.css'
 })
-export class S003Component implements OnInit {
-  mPageFlg: boolean = false; 
+export class S005Component implements OnInit {
 
-
-
-  constructor(private router: Router,
-    private route: ActivatedRoute
-
-  ) {
-    this.route.queryParams.subscribe(params => {
-      console.log(params); // { key1: "value1", key2: "value2" }
-      // 在这里处理接收到的参数
-      if(params['pageFlg']== 'true'){
-        this.mPageFlg = true
-      this.displayedColumns.splice(1,0,'select_m')}
-
-    });
-
-  }
   ngOnInit(): void {
-
-
   }
+  constructor(private router: Router) {}
+  dataSource3 = new MatTableDataSource<Element3>(ELEMENT_DATA_3);
   displayedColumns: string[] = [
     'select',
     'agency_name',
@@ -225,9 +200,7 @@ export class S003Component implements OnInit {
     'order',
     'number_people',
     'item_name',
-    'split1',
-    'split2',
-
+    'split',
     'add',
     'del',
   ];
@@ -244,46 +217,26 @@ export class S003Component implements OnInit {
     'subject',
     'amount',
   ];
-  dataSource = new MatTableDataSource<Element>([]);
-  selection = new SelectionModel<Element>(true, []);
+  pdfFilePath: string = 'assets/aa.pdf'; // 引用路径
+  recipients_to = [{ type: '', name: '', email: '' }]; // 初始化一个输入框组
+  recipients_cc = [{ type: '', name: '', email: '' }]; // 初始化一个输入框组
 
-  addRow(index: number) {
-    const newRow: Element = {
-      agency_name: '',
-      participating_store: '',
-      held_date: '',
-      event_location: '',
-      order: '',
-      number_people: '',
-      item_name: '',
-      type_flg: ''
-    };
-    this.dataSource.data.splice(index + 1, 0, newRow);
-    this.dataSource.data = [...this.dataSource.data]; // 触发视图更新
+  addRecipient(flg: string) {
+    if (flg == 'cc') {
+      this.recipients_cc.push({ type: '', name: '', email: '' });
+
+    } else {
+      this.recipients_to.push({ type: '', name: '', email: '' });
+
+    }
+
   }
-  delRow(index: number) {
-    const data = this.dataSource.data;
-    data.splice(index, 1); // 删除指定索引的元素
-    this.dataSource.data = data; // 更新数据源
+  previewPageShow() {
   }
   goBack() {
+    this.router.navigate(['/auto-x/s003/s003']);
+
     // this.location.back(); // 使用Location服务来导航到上一页
-    this.router.navigate(['/auto-x/s002/s002']);
 
-  }
-
-  previewPageShow() {
-    
-
-    this.router.navigate(['/auto-x/s005/s005']);
-  }
-
-  getProjectInformation(){
-    this.dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
-  
-  }
-
-  setPageFlg(flg:boolean){
-    this.mPageFlg=flg
   }
 }

@@ -1,0 +1,171 @@
+
+<mat-card >
+    <mat-card-content >
+      <p class="time-title">2024年10月</p>
+      <div
+        fxLayout="row"
+        fxLayoutGap="10px"
+        style="width: 100%; height: 60vh;" >
+        <!-- 表格区域 -->
+        <div style="width: 65vw; overflow: auto" fxLayout="column" fxFlex="100">
+          <table
+            mat-table
+            [dataSource]="dataSource2"
+            matSort
+            class="custom-table_1">
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="company_name">
+              <th
+                mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header
+                style="width: 10%">
+                会社名
+              </th>
+              <td mat-cell *matCellDef="let element" style="width: 10%">
+                {{ element.company_name }}
+              </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="w1">
+              <th
+                mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header
+                style="width: 5%">
+                1週目
+              </th>
+              <td mat-cell *matCellDef="let element" style="width: 5%">
+                {{ element.w1 }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="w2">
+              <th
+                mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header
+                style="width: 5%">
+                2週目
+              </th>
+              <td mat-cell *matCellDef="let element" style="width: 5%">
+                {{ element.w2 }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="w3">
+              <th
+                mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header
+                style="width: 5%">
+                3週目
+              </th>
+              <td mat-cell *matCellDef="let element" style="width: 5%">
+                {{ element.w3 }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="w4">
+              <th
+                mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header
+                style="width: 5%">
+                4週目
+              </th>
+              <td mat-cell *matCellDef="let element" style="width: 5%">
+                {{ element.w4 }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="w5">
+              <th
+                mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header
+                style="width: 5%">
+                5週目
+              </th>
+              <td mat-cell *matCellDef="let element" style="width: 5%">
+                {{ element.w5 }}
+              </td>
+            </ng-container>
+            <!-- Table Headers and Rows -->
+            <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+            <tr
+              mat-row
+              *matRowDef="let row; columns: displayedColumns2"
+            ></tr>
+          </table>
+        </div>
+
+        <!-- 搜索区域 -->
+        <div
+          style="width: 20vw;  margin-left: 30px;"
+          class="shadow-box"
+          fxLayout="column"
+          fxFlex="30"
+        >
+          <mat-form-field appearance="fill" >
+            <mat-label>対象年份</mat-label>
+            <mat-select>
+              <mat-option></mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>対象月份</mat-label>
+            <mat-select>
+              <mat-option></mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <button
+            mat-raised-button
+            color="primary"
+            style="margin-left: 30px;"
+            (click)="search()">
+            <mat-icon>search</mat-icon>
+            検索
+          </button>
+        </div>
+      </div>
+    </mat-card-content>
+
+  </mat-card>
+  <div
+    style="padding-top: 10px"
+    fxLayout="row"
+    fxLayoutGap="10px">
+    <button
+      mat-raised-button
+      color="primary"
+      fxFlex="100"
+      class="btn_s03"
+      (click)="checkPageShow(true)">
+      請求作成
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      fxFlex="100"
+      class="btn_s03"
+      (click)="checkPageShow(false)">
+      月払作成
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      fxFlex="100"
+      class="btn_s03">
+      請求記録
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      fxFlex="100"
+      class="btn_s03_1">
+      <mat-icon
+        style="font-size: 40px; padding-right: 20px; padding-bottom: 20px">settings</mat-icon >
+      請求設定
+    </button>
+  </div>

@@ -6,6 +6,7 @@ import { F109Component } from './f109/f109.component';
 import { F110Component } from './f110/f110.component';
 import { F111Component } from './f111/f111.component';
 import { F112Component } from './f112/f112.component';
+import { S005Component } from './s005/s005.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { F112Component } from './f112/f112.component';
     F109Component,
     F110Component,
     F111Component,
-    F112Component
+    F112Component,
+    S005Component
   ]
 })
 export class S005Module { }
