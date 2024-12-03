@@ -1,0 +1,24 @@
+<mat-card class="signin-card">
+  <mat-card-title class="title"></mat-card-title>
+  <mat-card-content>
+    <div>
+      <p style="font-size: 30px; width: 100%; height: 8vh; margin-top: 20vh">
+        はじめてご利用の方
+      </p>
+      <p>ご利用にはユーザー登録が必要です</p>
+      <button
+        mat-raised-button
+        class="mat-raised-button"
+        style="
+          height: 40px !important;
+          margin: 10px !important;
+          line-height: 18px !important;
+        "
+        (click)="navigateToRegister()"
+        color="primary"
+      >
+        新規ユーザー登録
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>

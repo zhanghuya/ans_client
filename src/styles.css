@@ -1,0 +1,322 @@
+@import "../node_modules/@angular/material/prebuilt-themes/indigo-pink.css";
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+.mat-raised-button {
+  border-radius: 5%; /* 调整为你需要的圆角大小 */
+  width: 200px;
+}
+mat-card-title {
+  display: block !important;
+  margin: 20px !important;
+  font-size: 36px !important;
+  color: #565151;
+  font: inherit;
+  font-weight: bold !important;
+}
+.signin-card {
+  text-align: center;
+  height: 70vh;
+  width: 30vw;
+}
+.signin-card-re {
+  text-align: left;
+  height: 70vh;
+  width: 30vw;
+}
+
+.save-button {
+  font-size: 18px; /* 设置保存按钮的字体大小，比返回按钮大 */
+  padding: 12px 24px; /* 调整按钮的内边距 */
+  display: flex;
+  align-items: center;
+  width: 35%;
+  float: right;
+}
+
+.save-button mat-icon {
+  margin-right: 8px;
+  font-size: 24px; /* 设置图标大小 */
+}
+
+.example-container {
+  height: 100%;
+  display: flex;
+}
+
+mat-sidenav {
+  width: 200px;
+}
+
+mat-sidenav-content {
+  padding: 10px;
+  overflow: hidden !important;
+}
+
+mat-sidenav::-webkit-scrollbar {
+  display: none; /* 对Chrome、Safari和Opera有效 */
+}
+
+.mat-drawer-inner-container {
+  overflow: hidden !important; /* 对Material内部容器应用样式 */
+}
+
+.rounded-header {
+  border-top-left-radius: 10px; /* 设置标题左上角圆角 */
+  border-top-right-radius: 10px; /* 设置标题右上角圆角 */
+  background-color: #abb9e0; /* 设置标题背景颜色 */
+  padding: 5px;
+}
+
+.sidenav-container {
+  height: 100vh !important;
+  background-color: #dadfeb !important;
+}
+
+.rounded-card {
+  border-radius: 15px; /* 设置圆角 */
+}
+.content-area {
+  background-color: #dadfeb !important;
+}
+
+.content-area .rounded-card {
+  border-radius: 15px;
+  height: 85vh;
+}
+.content-area .rounded-card-2 {
+  border-radius: 15px;
+  height: 96vh;
+}
+.content-area .rounded-card-3 {
+  border-radius: 15px;
+  height: 96vh;
+}
+.time-title {
+  margin-bottom: 20px !important;
+  margin-top: 40px !important;
+  font-size: 30px !important; /* 根据需要调整字体大小 */
+  color: #565151;
+  font: inherit;
+  font-weight: bold !important;
+}
+
+.container {
+  width: 72vw;
+  padding: 20px;
+  height: 75vh;
+  background-color: white;
+}
+
+.table-container {
+  width: 60%;
+}
+
+.custom-table {
+  width: 120%;
+  height: 100%;
+  border-collapse: collapse;
+}
+.custom-table_1 {
+  width: 80vw;
+  border-collapse: collapse;
+}
+.custom-table th {
+  background-color: #f2f2f2;
+  padding: 10px;
+  text-align: left;
+}
+
+.custom-table td {
+  padding: 10px;
+}
+
+.custom-table tr:nth-child(odd) {
+  background-color: #e6f7ff;
+}
+
+.custom-table tr:nth-child(even) {
+  background-color: #ffffff;
+}
+
+.button-page {
+  width: 15%;
+}
+.button-gobk {
+  width: 15%;
+  background-color: white !important;
+  color: blue !important;
+}
+
+/* 调整图标大小 */
+.large-icon {
+  height: 60px !important;
+  width: 60px !important;
+  font-size: 50px !important; /* 设置图标的大小 */
+}
+
+/* 自定义按钮样式 */
+.inline-element {
+  display: inline-block !important;
+  vertical-align: middle !important;
+  margin: 0 10px !important;
+}
+
+/* 菜单按钮 */
+.custom-button {
+  display: inline-block !important; /* 设置为内联块元素 */
+  vertical-align: middle !important; /* 垂直居中对齐 */
+  margin: 0 10px !important; /* 设置元素之间的间距 */
+  border: none !important; /* 移除边框 */
+  box-shadow: none !important; /* 移除阴影 */
+  outline: none !important; /* 移除点击时的边框 */
+  background-color: var(--mat-primary) !important; /* 使用主题主要颜色 */
+  color: white !important; /* 设置文字或图标颜色为白色 */
+}
+/* 菜单按钮 */
+.custom-button-title {
+  display: inline-block !important; /* 设置为内联块元素 */
+  vertical-align: middle !important; /* 垂直居中对齐 */
+  border: none !important; /* 移除边框 */
+  box-shadow: none !important; /* 移除阴影 */
+  outline: none !important; /* 移除点击时的边框 */
+  background-color: var(--mat-primary) !important; /* 使用主题主要颜色 */
+  color: white !important; /* 设置文字或图标颜色为白色 */
+  margin-top: -10px;
+  margin-bottom: 0px;
+}
+.large-icon-title {
+  height: 60px !important;
+  width: 60px !important;
+  margin-left: -20px;
+  margin-top: -15px;
+  font-size: 50px !important; /* 设置图标的大小 */
+}
+.table-container {
+  width:110% !important;/* 你想要的最大高度 */
+  overflow: auto !important; /* 垂直方向显示滚动条 */
+
+  height: 69% !important;
+  background-color: white !important;
+}
+.table-container-1 {
+  width: 60vw; /* 你想要的最大高度 */
+  overflow: auto !important; /* 垂直方向显示滚动条 */
+
+  height: 75vh;
+  background-color: white !important;
+}
+
+.custom-table tr:nth-child(even) {
+  background-color: #f2f2f2; /* 偶数行背景颜色 */
+}
+
+.custom-table tr:nth-child(odd) {
+  background-color: #ffffff; /* 奇数行背景颜色 */
+}
+
+/* 可选的 - 设置表头背景颜色 */
+.mat-header-cell {
+  background-color: #e0e0e0;
+}
+
+/* 可选的 - 设置表头字体样式 */
+.mat-header-cell {
+  font-weight: bold;
+}
+.year-picker .mat-calendar-period-button,
+.year-picker .mat-calendar-arrow {
+  display: none;
+}
+
+.year-picker .mat-calendar-content .mat-calendar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 250px;
+}
+
+.year-picker .mat-calendar-body-cell-content {
+  font-size: 2rem;
+  line-height: 2.5rem;
+}
+
+.shadow-box {
+  width: 200px;
+  height: 40vh;
+  border: 2px solid #e0e0e0;
+  padding: 20px 20px 20px 20px;
+  box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+  border-radius: 15px; /* 圆角效果 */
+  flex-direction: column !important;
+}
+.shadow-box-1 {
+  width: 200px;
+  height: 100%;
+  border: 2px solid #e0e0e0;
+  padding: 20px 20px 20px 20px;
+  box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+  border-radius: 15px; /* 圆角效果 */
+}
+
+.btn_s03 {
+  width: 23% !important;
+  height: 8vh !important;
+  margin-left: 20px !important;
+  font-size: 35px!important;
+
+}
+
+.btn_s03_1 {
+  width: 23% !important;
+  height: 8vh !important;
+  margin-left: 20px !important;
+  background-color: white!important;;
+  color: blue!important;
+  font-size: 35px!important;
+
+}
+.pdf-viewer-container {
+  width: 30vw;
+  height: auto!important; /* 设置容器高度 */
+}
+
+.save-button {
+  font-size: 18px; /* 设置保存按钮的字体大小，比返回按钮大 */
+  padding: 12px 24px; /* 调整按钮的内边距 */
+  display: flex;
+  align-items: center;
+  width: 35%;
+  float: right;
+}
+
+.save-button mat-icon {
+  margin-right: 8px;
+  font-size: 24px; /* 设置图标大小 */
+}
+
+.button-page-s03 {
+  width: 15%;
+  font-size: 34px; /* 设置图标大小 */
+
+  height: 8vh !important;
+}
+.button-gobk-s03 {
+  width: 15%;
+  height: 60px !important;
+  background-color: white !important;
+  color: blue !important;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+}

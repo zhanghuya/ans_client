@@ -1,0 +1,9 @@
+.signin-card {
+    text-align: center;
+    height: 70vh;
+    width: 30vw;
+  }
+  .title {
+    margin-bottom: 20px;
+    font-size: 24px; /* 根据需要调整字体大小 */
+  }

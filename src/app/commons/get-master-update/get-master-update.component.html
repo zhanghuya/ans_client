@@ -1,0 +1,283 @@
+
+      <mat-card >
+        <!-- <mat-card-header class="rounded-header">
+          <mat-card-title *ngIf="page_1">見積金額</mat-card-title>
+          <mat-card-title *ngIf="page_2">見積作成 案件チェック</mat-card-title>
+          <mat-card-title *ngIf="page_3">見積プレビュー</mat-card-title>
+        </mat-card-header> -->
+
+
+        <mat-card-content style="height: 85vh;overflow-y: auto">
+          <div
+          fxLayoutGap="10px"
+          style="width: 100%; height: 60vh;"
+          >
+            <!-- 搜索区域 -->
+            <div
+              fxLayout="row"
+              fxLayoutAlign="start center"
+              fxLayoutGap="10px"
+            >
+              <mat-form-field appearance="fill" fxFlex="20">
+                <mat-label>対象年份</mat-label>
+                <mat-select>
+                  <mat-option></mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" style="padding-left: 30px" fxFlex="20">
+                <mat-label>対象月份</mat-label>
+                <mat-select>
+                  <mat-option></mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <button
+                mat-raised-button
+                color="primary"
+                fxFlex="20"
+                style="margin-left: 30px; width: 15%"
+                (click)="getProjectInformation()">
+                案件情報取得
+              </button>
+            </div>
+            <div
+              fxLayout="row"
+              fxLayoutAlign="start center"
+              fxLayoutGap="10px"
+            >
+              <mat-form-field appearance="fill" fxFlex="20">
+                <mat-label>代理店</mat-label>
+                <mat-select>
+                  <mat-option></mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <button
+                mat-raised-button
+                color="primary"
+                fxFlex="20"
+                style="margin-left: 30px; width: 15%"
+              >
+                絞り込み
+              </button>
+            </div>
+
+            <!-- 表格区域 -->
+            <div style="width: 100%;height: 100%;overflow-x: hidden;"
+              fxLayout="row"
+              fxLayoutGap="10px">
+              <table
+                mat-table
+                [dataSource]="dataSource"
+                matSort
+                fxFlex="100"
+                class="custom-table"
+              >
+                <!-- Select Column -->
+                <ng-container matColumnDef="select">
+                  <th mat-header-cell *matHeaderCellDef style="width: 5%">統合</th>
+                  <td mat-cell *matCellDef="let element" style="width: 5%">
+                    <mat-checkbox
+                      (click)="$event.stopPropagation()"
+                      (change)="$event ? selection.toggle(element) : null"
+                      [checked]="selection.isSelected(element)"
+                    ></mat-checkbox>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="select_m" *ngIf="mPageFlg" >
+                  <th mat-header-cell *matHeaderCellDef style="width: 5%">月払</th>
+                  <td mat-cell *matCellDef="let element" style="width: 5%">
+                    <mat-checkbox
+                      (click)="$event.stopPropagation()"
+                      (change)="$event ? selection.toggle(element) : null"
+                      [checked]="selection.isSelected(element)"
+                    ></mat-checkbox>
+                  </td>
+                </ng-container>
+                <!-- Position Column -->
+                <ng-container matColumnDef="agency_name">
+                  <th
+                    mat-header-cell
+                    *matHeaderCellDef
+                    mat-sort-header
+                    style="width: 10%"
+                  >
+                    代理店名
+                  </th>
+                  <td mat-cell *matCellDef="let element" style="width: 10%">
+                    {{ element.agency_name }}
+                  </td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="participating_store">
+                  <th
+                    mat-header-cell
+                    *matHeaderCellDef
+                    mat-sort-header
+                    style="width: 20%"
+                  >
+                    開催店舗
+                  </th>
+                  <td mat-cell *matCellDef="let element" style="width: 10%">
+                    {{ element.participating_store }}
+                  </td>
+                </ng-container>
+
+                <!-- Weight Column -->
+                <ng-container matColumnDef="held_date">
+                  <th
+                    mat-header-cell
+                    *matHeaderCellDef
+                    mat-sort-header
+                    style="width: 10%"
+                  >
+                    開催日
+                  </th>
+                  <td mat-cell *matCellDef="let element" style="width: 10%">
+                    {{ element.held_date }}
+                  </td>
+                </ng-container>
+
+                <!-- Symbol Column -->
+                <ng-container
+                  matColumnDef="event_location"
+                  style="width: 10%"
+                >
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 10%">
+                    イベント実施場所
+                  </th>
+                  <td mat-cell *matCellDef="let element" style="width: 10%">
+                    {{ element.event_location }}
+                  </td>
+                </ng-container>
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="order">
+                  <th
+                    mat-header-cell
+                    *matHeaderCellDef
+                    mat-sort-header
+                    style="width: 10%"
+                  >
+                    オーダー
+                  </th>
+                  <td mat-cell *matCellDef="let element" style="width: 10%">
+                    {{ element.order }}
+                  </td>
+                </ng-container>
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="number_people">
+                  <th
+                    mat-header-cell
+                    *matHeaderCellDef
+                    mat-sort-header
+                    style="width: 10%"
+                  ></th>
+                  <td mat-cell *matCellDef="let element" style="width: 10%">
+                    <ng-container
+                      *ngIf="
+                        element.type_flg == 2 || element.type_flg == 3;
+                        else nonEditableSymbol
+                      "
+                    >
+                      <input matInput [(ngModel)]="element.number_people" />
+                    </ng-container>
+                    <ng-template #nonEditableSymbol>
+                      {{ element.number_people }}
+                    </ng-template>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="item_name">
+                  <th
+                    mat-header-cell
+                    *matHeaderCellDef
+                    mat-sort-header
+                    style="width: 10%"
+                  >
+                    品目名
+                  </th>
+                  <td mat-cell *matCellDef="let element" style="width: 10%">
+                    <ng-container>
+                      <input matInput [(ngModel)]="element.item_name" />
+                    </ng-container>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="split1">
+                  <th mat-header-cell *matHeaderCellDef style="width: 10%">
+                    ページ分け1
+                  </th>
+                  <td mat-cell *matCellDef="let element" style="width: 10%">
+                    <mat-checkbox
+                      (click)="$event.stopPropagation()"
+                      (change)="$event ? selection.toggle(element) : null"
+                      [checked]="selection.isSelected(element)"
+                    ></mat-checkbox>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="split2">
+                  <th mat-header-cell *matHeaderCellDef style="width: 10%">
+                    ページ分け2
+                  </th>
+                  <td mat-cell *matCellDef="let element" style="width: 10%">
+                    <mat-checkbox
+                      (click)="$event.stopPropagation()"
+                      (change)="$event ? selection.toggle(element) : null"
+                      [checked]="selection.isSelected(element)"
+                    ></mat-checkbox>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="add">
+                  <th mat-header-cell *matHeaderCellDef></th>
+                  <td mat-cell *matCellDef="let element; let i = index">
+                    <button mat-icon-button (click)="addRow(i)">
+                      <mat-icon>add</mat-icon>
+                    </button>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="del">
+                  <th mat-header-cell *matHeaderCellDef></th>
+                  <td mat-cell *matCellDef="let element; let i = index">
+                    <button
+                      mat-icon-button
+                      (click)="delRow(i)"
+                      class="custom-icon"
+                    >
+                      <mat-icon>remove_circle</mat-icon>
+                    </button>
+                  </td>
+                </ng-container>
+                <!-- Table Headers and Rows -->
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr
+                  mat-row
+                  *matRowDef="let row; columns: displayedColumns"
+                ></tr>
+              </table>
+            </div>
+            <mat-toolbar             
+            fxLayout="row"
+            fxLayoutGap="20px" style="width: 100%;background-color: white;">
+              <div style="width: 80%;"></div>
+              <button
+                mat-raised-button
+                color="primary"
+                (click)="goBack()"
+                style="margin-right: 20px"
+                class="button-gobk" >
+                <mat-icon>arrow_back</mat-icon>
+                戻る
+              </button>
+              <button
+                mat-raised-button
+                color="primary"
+                (click)="previewPageShow()"
+                class="button-page" >
+                作成実行
+              </button>
+            </mat-toolbar   >
+          </div>
+        </mat-card-content>
+      </mat-card>
+    

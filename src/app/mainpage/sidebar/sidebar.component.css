@@ -1,0 +1,57 @@
+.custom-container-bar {
+  padding-top:30px ;
+    
+  background: #0C41A0CC;
+  height: 100%;
+  }
+  
+  .menu {
+    padding-top: 5px;
+    padding-left: 35px;
+    padding-right: 20px;
+    font-size: 30px;
+    color: white;
+    font-family: var(--sds-typography-subheading-font-family);
+    font-weight: 700;
+    line-height: var(--DisplaySmallLineHeight);
+    letter-spacing: var(--DisplayMediumTracking);
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+
+}
+.title {
+  padding-top: 5px;
+  padding-left: 35px;
+  padding-right: 20px;
+  font-size: 25px;
+  color: white;
+  margin-left: -15px;
+
+}
+.logo {
+    display: block;
+    margin: 15px auto 20px;
+    width: 100px; /* 根据需要调整logo尺寸 */
+    height: 100px;
+    margin-left:-40px ;
+  }
+
+/* 为容器设置样式 */
+.containe-bar {
+    text-align: center; /* 可选：让内容居中 */
+  }
+  
+
+  
+  /* 创建一个圆角的长方形 */
+.rounded-rectangle {
+  width: 150px; /* 设置宽度 */
+  height: 20px; /* 设置高度 */
+  background-color: #c1d3f1; /* 设置背景颜色 */
+  color: black; /* 设置文字颜色 */
+  text-align: center; /* 文本居中 */
+  border-radius: 15px; /* 设置圆角半径 */
+  margin-left: 10px;
+
+}

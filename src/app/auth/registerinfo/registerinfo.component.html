@@ -1,0 +1,62 @@
+<mat-card class="signin-card-re">
+  <mat-card-title>新規ユーザ登録</mat-card-title>
+  <mat-card-content>
+    <div style="width: 100%; float: right">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="goBack()"
+        style="width: 35%; float: right; background-color: white; color: blue"
+      >
+        <mat-icon>arrow_back</mat-icon>
+        戻る
+      </button>
+    </div>
+
+    <form
+      [formGroup]="registerForm"
+      fxLayoutGap="24px"
+      fxLayout="column"
+      style="margin-top: 50px"
+    >
+      <div fxLayout="row" fxLayoutGap="16px" fxFlex="1 1 auto">
+        <mat-form-field appearance="fill" fxFlex="50%">
+          <mat-label>姓：</mat-label>
+          <input matInput formControlName="lastname" required />
+          <mat-error *ngIf="registerForm.get('lastname')?.hasError('required')"
+            >姓：必須です</mat-error
+          >
+        </mat-form-field>
+        <mat-form-field appearance="fill" fxFlex="50%">
+          <mat-label>名：</mat-label>
+          <input matInput formControlName="firstname" required />
+          <mat-error *ngIf="registerForm.get('firstname')?.hasError('required')"
+            >名：必須です</mat-error
+          >
+        </mat-form-field>
+      </div>
+      <mat-form-field appearance="fill" fxFlex="100%">
+        <mat-label>メールアドレス</mat-label>
+        <input matInput type="email" formControlName="email" required />
+        <mat-error *ngIf="registerForm.get('email')?.hasError('required')"
+          >メールアドレス：必須です</mat-error
+        >
+        <mat-error *ngIf="registerForm.get('email')?.hasError('email')"
+          >メールアドレス：メールアドレスを入力してください</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field appearance="fill" fxFlex="100%">
+        <mat-label>パスワード</mat-label>
+        <input matInput type="password" formControlName="password" required />
+        <mat-error *ngIf="registerForm.get('email')?.hasError('required')"
+          >パスワード：必須です</mat-error>
+      </mat-form-field>
+    </form>
+    <div style="width: 100%; float: right">
+      <button mat-raised-button color="primary" class="save-button">
+        <mat-icon>save</mat-icon>
+        保存
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>

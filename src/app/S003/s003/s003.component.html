@@ -1,0 +1,16 @@
+<div>
+
+      <div >
+          <!-- <mat-card-header class="rounded-header">
+            <mat-card-title *ngIf="page_1">見積金額</mat-card-title>
+            <mat-card-title *ngIf="page_2">見積作成 案件チェック</mat-card-title>
+            <mat-card-title *ngIf="page_3">見積プレビュー</mat-card-title>
+          </mat-card-header> -->
+          <app-get-master-data (flagChanged)="checkPageShow($event)" *ngIf="page_1"></app-get-master-data>
+          <app-get-master-update [mPageFlg]="mPageFlg" (flagChanged)="previewPageShow()" *ngIf="page_2"></app-get-master-update>
+          <app-get-master-preview (flagChanged)="checkPageShow($event)" *ngIf="page_3"></app-get-master-preview>
+ 
+
+      </div>
+
+</div>

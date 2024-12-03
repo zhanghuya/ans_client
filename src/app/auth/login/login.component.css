@@ -1,0 +1,31 @@
+.signin-card {
+    text-align: center;
+    height: 70vh;
+    width: 30vw;
+  }
+  
+  .logo {
+    display: block;
+    margin: 15px auto 20px;
+    width: 100px; /* 根据需要调整logo尺寸 */
+    height: 100px;
+  }
+  
+  .title {
+    margin-bottom: 20px;
+    font-size: 24px; /* 根据需要调整字体大小 */
+  }
+  
+  .form-field-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px; /* 调整间距 */
+  }
+  
+  .mat-form-field {
+    width: 100%;
+  }
+  
+  .mat-input-element {
+    background-color: white;
+  }
