@@ -1,0 +1,63 @@
+<mat-card>
+  <mat-card-content class="full-card-content">
+    <p class="time-title">2024年10月</p>
+    <div class="card-container">
+      <!--データtable-->
+      <div class="table-card-container">
+        <mat-tab-group (selectedTabChange)="onTabChange($event)">
+          <mat-tab label="見積"></mat-tab>
+          <mat-tab label="請求"></mat-tab>
+        </mat-tab-group>
+
+        <table mat-table [dataSource]="currentDataSource">
+          <ng-container matColumnDef="company">
+            <th mat-header-cell *matHeaderCellDef> 会社名 </th>
+            <td mat-cell *matCellDef="let element"> {{ element.company }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="estimate">
+            <th mat-header-cell *matHeaderCellDef> 見積総額 </th>
+            <td mat-cell *matCellDef="let element"> ¥{{ element.estimate}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="invoice">
+            <th mat-header-cell *matHeaderCellDef> 請求総額 </th>
+            <td mat-cell *matCellDef="let element"> {{ element.invoice || '未請求' }} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+
+      <!--検索条件-->
+      <div class="filter-card-container">
+        <mat-form-field appearance="fill" style="width: 100%">
+          <mat-label>代理店名</mat-label>
+          <mat-select>
+            <mat-option></mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" style="width: 100%">
+          <mat-label>対象年份</mat-label>
+          <mat-select>
+            <mat-option></mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" style="width: 100%">
+          <mat-label>対象月份</mat-label>
+          <mat-select>
+            <mat-option></mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" style="width: 100%">
+          <mat-icon>search</mat-icon>
+          検索
+        </button>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

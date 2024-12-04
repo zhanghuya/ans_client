@@ -1,0 +1,70 @@
+
+<mat-card>
+  <mat-card-content class="full-card-content" style="overflow: auto !important;">
+    <div class="div-container">
+      <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+        <div>
+          <label>会社名：</label>
+          <mat-form-field class="full-width">
+            <input matInput formControlName="companyName" placeholder="会社名" type="email" />
+          </mat-form-field>
+        </div>
+
+        <div>
+          <label>会社ロゴ：</label>
+          <div fxLayout="row" fxLayoutAlign="start center" class="image-container">
+            <div fxLayout="column" fxFlex="70%">
+              <img [src]="uploadedImageUrl || placeholderImageUrl" alt="Uploaded Image" />
+            </div>
+
+            <div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="16px">
+              <button mat-raised-button color="warn" (click)="deleteImage()">削除</button>
+              <button mat-raised-button color="primary" (click)="changeImage()">変更</button>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label>会社住所：</label>
+          <mat-form-field class="full-width">
+            <input matInput formControlName="companyAddress" placeholder="121-1234" type="email" />
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <input matInput formControlName="companyAddress" placeholder="会社住所" type="email" />
+          </mat-form-field>
+        </div>
+
+
+        <div fxLayout="column" fxLayoutGap="16px">
+          <div fxLayout="row" fxLayoutAlign="space-between start" fxLayoutGap="16px">
+            <div fxFlex="50%">
+              <label>銀行名：</label>
+              <mat-form-field class="full-width">
+                <input matInput formControlName="bankName" type="text" placeholder="銀行名" />
+              </mat-form-field>
+            </div>
+            <div fxFlex="50%">
+              <label>支店名：</label>
+              <mat-form-field class="full-width">
+                <input matInput formControlName="branchName" type="text" placeholder="支店名" />
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div fxLayout="row" fxLayoutAlign="start start" style="padding-left: 50%;">
+            <div fxFlex="50%">
+              <label>支店コード：</label>
+              <mat-form-field class="full-width">
+                <input matInput formControlName="branchCode" type="text" placeholder="支店コード" />
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="end center">
+          <button mat-raised-button color="primary" type="submit">登録</button>
+        </div>
+      </form>
+    </div>
+  </mat-card-content>
+</mat-card>

@@ -107,6 +107,40 @@ mat-sidenav::-webkit-scrollbar {
   font-weight: bold !important;
 }
 
+.full-card-content{
+  height: 80vh !important;
+  flex-direction: column;
+  display: flex;
+}
+
+.card-container {
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap; 
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.table-card-container {
+  flex: 0 0 70%;
+  max-width: 70%;
+  height: 100%;
+  border: none !important;
+  box-shadow: none !important;
+  overflow: auto !important;
+}
+
+.filter-card-container {
+  max-width: 30%;
+  align-self: flex-start;
+  border: 2px solid #e0e0e0;
+  padding: 20px 20px 20px 20px;
+  box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  flex-direction: column;
+}
+
 .container {
   width: 72vw;
   padding: 20px;

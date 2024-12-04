@@ -1,0 +1,58 @@
+<mat-card>
+  <mat-card-content>
+    <div fxLayout="row" fxLayoutAlign="end center" style="margin: 15px 0 15px 0;">
+      <button mat-raised-button color="primary" fxFlex="10" (click)="goBack()"
+        style="float: right; background-color: white; color: blue">
+        <mat-icon>arrow_back</mat-icon>
+        戻る
+      </button>
+    </div>
+
+    <div class="div-container">
+      <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+        <div fxLayout="row" fxLayoutGap="16px">
+          <div fxFlex="45%">
+            <label>姓</label>
+            <mat-form-field style="width: 100%;">
+              <input matInput formControlName="lastName" placeholder="例: 山田" />
+            </mat-form-field>
+          </div>
+          <div fxFlex="45%">
+            <label>名</label>
+            <mat-form-field style="width: 100%;">
+              <input matInput formControlName="firstName" placeholder="例: 太郎" />
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div>
+          <label>メールアドレス</label>
+          <mat-form-field class="full-width">
+            <input matInput formControlName="email" placeholder="例: sample@example.com" type="email" />
+          </mat-form-field>
+        </div>
+
+        <div>
+          <label>パスワード</label>
+          <mat-form-field class="full-width">
+            <input matInput formControlName="password" placeholder="6文字以上" type="password" />
+          </mat-form-field>
+        </div>
+
+        <div>
+          <label>権限</label>
+          <mat-form-field class="full-width">
+            <mat-select formControlName="role">
+              <mat-option value="admin">管理者</mat-option>
+              <mat-option value="user">ユーザー</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="end center">
+          <button mat-raised-button color="primary" type="submit">登録</button>
+        </div>
+      </form>
+    </div>
+  </mat-card-content>
+</mat-card>
