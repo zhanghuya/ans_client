@@ -24,6 +24,9 @@ export const routes: Routes = [
     { path: 's010', loadChildren: () => import('./S010/s010.module').then(m => m.S010Module) },
     { path: 's011', loadChildren: () => import('./S011/s011.module').then(m => m.S011Module) },
     { path: 's012', loadChildren: () => import('./S012/s012.module').then(m => m.S012Module) },
+    { path: 's013', loadChildren: () => import('./S013/s013.module').then(m => m.S013Module) },
+    { path: 's014', loadChildren: () => import('./S014/s014.module').then(m => m.S014Module) },
+    { path: 's019', loadChildren: () => import('./S019/s019.module').then(m => m.S019Module) },
     { path: 'commons', loadChildren: () => import('./commons/commons.module').then(m => m.CommonsModule) },
     { path: 's022', loadChildren: () => import('./S022/s022.module').then(m => m.S022Module) },
 

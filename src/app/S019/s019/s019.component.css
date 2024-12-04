@@ -1,0 +1,9 @@
+mat-tab-group {
+    margin-top: 20px;
+    display: inline-block;
+}
+
+mat-tab {
+    display: inline-block;
+    width: auto;
+}

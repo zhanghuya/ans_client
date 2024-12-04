@@ -1,64 +1,83 @@
-<div >
-    <mat-sidenav-container class="sidenav-container">
-      <mat-sidenav-content>
-        <div class="content-area">
-          <mat-card class="rounded-card">
-            <mat-card-header class="rounded-header">
-              <mat-card-title>見積.請求 月額</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-              <p class="time-title">2024年10月</p>
-              <div class="container" fxLayout="row" fxLayoutGap="20px">
-                <!-- 搜索区域 -->
-                <div class="search-area" fxFlex="30">
-                  <mat-form-field>
-                    <mat-label>名称</mat-label>
-                    <input matInput>
-                  </mat-form-field>
-                  <button mat-raised-button color="primary" >检索</button>
-                </div>
-              
-                <!-- 表格区域 -->
-                <div class="table-container" fxFlex="70">
-                  <table mat-table [dataSource]="dataSource" class="custom-table">
-              
-                    <!-- 编号列 -->
-                    <ng-container matColumnDef="id">
-                      <th mat-header-cell *matHeaderCellDef> 编号 </th>
-                      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-                    </ng-container>
-              
-                    <!-- 名称列 -->
-                    <ng-container matColumnDef="name">
-                      <th mat-header-cell *matHeaderCellDef> 名称 </th>
-                      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-                    </ng-container>
-              
-                    <!-- 重量列 -->
-                    <ng-container matColumnDef="weight">
-                      <th mat-header-cell *matHeaderCellDef> 重量 </th>
-                      <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
-                    </ng-container>
-              
-                    <!-- 符号列 -->
-                    <ng-container matColumnDef="symbol">
-                      <th mat-header-cell *matHeaderCellDef> 符号 </th>
-                      <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
-                    </ng-container>
-              
-                    <!-- 表头行 -->
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <!-- 数据行 -->
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                  </table>
-                </div>
-              </div>
-              
-              
-            </mat-card-content>
-          </mat-card>
+<mat-card>
+  <mat-card-content>
+    <p class="time-title">2024年10月</p>
+    <div class="card-container" style="height:40vh;">
+      <!--データtable-->
+      <div class="table-card-container">
+        <table mat-table [dataSource]="dataSource">
+          <ng-container matColumnDef="company">
+            <th mat-header-cell *matHeaderCellDef> 会社名 </th>
+            <td mat-cell *matCellDef="let element"> {{ element.company }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="estimate">
+            <th mat-header-cell *matHeaderCellDef> 見積総額 </th>
+            <td mat-cell *matCellDef="let element"> ¥{{ element.estimate}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="invoice">
+            <th mat-header-cell *matHeaderCellDef> 請求総額 </th>
+            <td mat-cell *matCellDef="let element"> {{ element.invoice || '未請求' }} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" (dblclick)="onRowDoubleClick()"></tr>
+        </table>
+      </div>
+
+      <!--検索条件-->
+      <div class="filter-card-container">
+        <mat-form-field appearance="fill" style="width: 100%">
+          <mat-label>対象年份</mat-label>
+          <mat-select>
+            <mat-option></mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" style="width: 100%">
+          <mat-label>対象月份</mat-label>
+          <mat-select>
+            <mat-option></mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" style="width: 100%">
+          <mat-icon>search</mat-icon>
+          検索
+        </button>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<div fxLayout="row">
+  <div class="actions-section">
+    <mat-card class="action-card">
+      <mat-card-header class="rounded-header">
+        <mat-card-title style="font-weight: normal !important;">見積処理</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>案件マスタから情報の抽出を行い、見積書を自動作成します。</p>
+        <small>*実績確定後に実行するようにしてください。</small>
+        <div class="button-container">
+          <button mat-raised-button color="primary" (click)="processEstimates()">見積処理へ</button>
+          <button mat-raised-button color="primary" (click)="saveTemp()">一時保存</button>
         </div>
-      </mat-sidenav-content>
-    </mat-sidenav-container>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="action-card">
+      <mat-card-header class="rounded-header">
+        <mat-card-title style="font-weight: normal !important;">請求処理</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>見積情報から請求書を発行します。</p>
+        <small>*実績確定後に実行するようにしてください。</small>
+        <div class="button-container">
+          <button mat-raised-button color="primary" (click)="processInvoices()">請求処理へ</button>
+          <button mat-raised-button color="primary" (click)="saveTemp()">一時保存</button>
+        </div>
+      </mat-card-content>
+    </mat-card>
   </div>
-  
+</div>
