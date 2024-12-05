@@ -15,6 +15,7 @@ import { GetMasterUpdateComponent } from '../../commons/get-master-update/get-ma
 import { GetMasterPreviewComponent } from '../../commons/get-master-preview/get-master-preview.component';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+import { WinService } from '../../service/win.service';
 
 export interface Element {
   type_flg: string;
@@ -199,17 +200,20 @@ export class S003Component implements OnInit {
 
 
   constructor(private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private win: WinService
+
 
   ) {
-    this.route.queryParams.subscribe(params => {
-      console.log(params); // { key1: "value1", key2: "value2" }
-      // 在这里处理接收到的参数
-      if(params['pageFlg']== 'true'){
-        this.mPageFlg = true
-      this.displayedColumns.splice(1,0,'select_m')}
+    // 在这里处理接收到的参数
+    if(this.win.parameters.pageFlg){
+      this.mPageFlg = true
+    this.displayedColumns.splice(1,0,'select_m')}
+    // this.route.queryParams.subscribe(params => {
+    //   console.log(params); // { key1: "value1", key2: "value2" }
 
-    });
+
+    // });
 
   }
   ngOnInit(): void {

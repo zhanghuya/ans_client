@@ -1,0 +1,26 @@
+
+    <mat-card-content>
+        <div class="popup-header">
+            <h1></h1>
+            <button mat-icon-button (click)="closeDialog()">
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+      <div style="width: 100%;padding-top: 20px;">
+        <mat-form-field style="width: 100%;">
+          <mat-label>件名</mat-label>
+          <input
+            matInput/>
+        </mat-form-field>
+        <mat-toolbar             
+        fxLayout="row"
+        fxLayoutGap="20px" style="width: 100%;background-color: white;">
+          <div style="width: 70%;"></div>
+
+          <button mat-raised-button color="primary" class="button-page" style="margin-right: 20px">
+            <mat-icon>save</mat-icon>
+            一時保存
+          </button>
+        </mat-toolbar>
+      </div>
+    </mat-card-content>

@@ -1,0 +1,94 @@
+
+<mat-card >
+
+    <mat-card-content style="height: 85vh;overflow-y: auto">
+    <div>
+        減算ルール
+        <div></div>
+       
+        <div></div>
+        
+        <div     fxLayout="row"
+        fxLayoutGap="10px"> 
+
+
+                <div fxLayout="column">項目  </div><div fxLayout="column">ルール  </div> </div>
+          <div *ngFor="let recipient of recipients_cc; let i = index" fxLayout="row" fxLayoutGap="10px">
+
+
+            <mat-form-field>
+                <mat-label>項目</mat-label>
+
+              <input matInput placeholder=""/>
+            </mat-form-field>
+            <mat-form-field appearance="fill" >
+                <mat-label>-定額減算-</mat-label>
+                <mat-select>
+                  <mat-option>-定額減算-</mat-option>
+                </mat-select>
+              </mat-form-field>
+            <mat-form-field style="margin-left: 10px;">
+              <input matInput placeholder="￥0"/>
+            </mat-form-field>
+            <button mat-icon-button color="primary" >
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
+
+          <mat-form-field fxLayout="column">
+            <mat-label>請求書ファイル命名規則</mat-label>
+            <input matInput placeholder=""/>
+          </mat-form-field>
+          <mat-form-field fxLayout="column">
+            <mat-label>請求番号発番ルール</mat-label>
+            <input matInput placeholder=""/>
+          </mat-form-field>
+          振込期日設定ルール
+          <div fxLayout="row" fxLayoutGap="10px">
+            <mat-form-field appearance="fill" >
+                <mat-label>月</mat-label>
+                <mat-select>
+                  <mat-option>-定額減算-</mat-option>
+                </mat-select>
+              </mat-form-field>
+            <mat-form-field style="margin-left: 10px;">
+              <input matInput placeholder="￥0"/>
+            </mat-form-field>
+
+          </div>
+          <div fxLayout="row" fxLayoutGap="10px">
+
+
+              <mat-form-field appearance="fill" >
+                <mat-label>日付</mat-label>
+                <mat-select>
+                  <mat-option>-定額減算-</mat-option>
+                </mat-select>
+              </mat-form-field>
+            <mat-form-field style="margin-left: 10px;">
+              <input matInput placeholder="￥0"/>
+            </mat-form-field>
+
+          </div>
+          支払期日が土日祝の場合：
+          <form >
+            <mat-checkbox >前営業日</mat-checkbox>
+            <mat-checkbox >後営業日</mat-checkbox>
+            <mat-checkbox >考慮しない</mat-checkbox>
+            <!-- 添加更多复选框 -->
+          </form>
+          <div style="margin-top: 20px">
+            <mat-form-field appearance="fill" style="width: 100%">
+              <mat-label>本文：</mat-label>
+
+              <textarea
+                matInput
+                rows="10"
+              ></textarea>
+              </mat-form-field></div>
+  
+
+    </div>
+    </mat-card-content>
+  </mat-card>
+  

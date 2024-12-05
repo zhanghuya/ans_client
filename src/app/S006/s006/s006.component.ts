@@ -230,12 +230,13 @@ export class S006Component {
 
 
   }
-  
-  // checkPageShowM(pageFlg?:string) {
-  //   this.mPageFlg = false;
-  //   this.flagChanged.emit(pageFlg);
+  checkPageShow1(pageFlg:boolean) {
+    // this.mPageFlg = pageFlg;
+    // this.flagChanged.emit(pageFlg);
+    this.router.navigate(['/auto-x/s007/s007'], { queryParams: { pageFlg: pageFlg } });
 
-  // }
+
+  }
 }
 
 

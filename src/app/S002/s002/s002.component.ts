@@ -11,6 +11,9 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer'
 import { Router } from '@angular/router';
+import { WinService } from '../../service/win.service';
+
+
 
 export interface Element {
   type_flg: string;
@@ -188,7 +191,9 @@ const ELEMENT_DATA: Element[] = [
 export class S002Component implements OnInit {
   @Output() flagChanged = new EventEmitter<boolean>();
   mPageFlg: boolean = false; 
-  constructor(private router: Router) {}
+  constructor(private router: Router,
+    private win: WinService
+  ) {}
 
   ngOnInit(): void {
   }
@@ -226,7 +231,9 @@ export class S002Component implements OnInit {
   checkPageShow(pageFlg:boolean) {
     // this.mPageFlg = pageFlg;
     // this.flagChanged.emit(pageFlg);
-    this.router.navigate(['/auto-x/s003/s003'], { queryParams: { pageFlg: pageFlg } });
+    let params = { pageFlg: pageFlg }
+    this.win.setData( params );
+    this.router.navigate(['/auto-x/s003/s003']);
 
 
   }
@@ -236,5 +243,9 @@ export class S002Component implements OnInit {
   //   this.flagChanged.emit(pageFlg);
 
   // }
+
+  setPageShow(){
+    this.router.navigate(['/auto-x/s004/s004']);
+  }
 }
 

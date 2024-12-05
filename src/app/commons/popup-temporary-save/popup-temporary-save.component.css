@@ -1,0 +1,12 @@
+.popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .popup-content {
+    padding: 20px;
+  }
+  
+  /* 自定义更多样式 */
+  

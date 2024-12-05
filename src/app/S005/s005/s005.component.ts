@@ -11,6 +11,9 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer'
 import { Router } from '@angular/router';
+import { MatDialogRef } from '@angular/material/dialog';
+import { PopupTemporarySaveComponent } from '../../commons/popup-temporary-save/popup-temporary-save.component';
+import { MatDialog } from '@angular/material/dialog';
 
 export interface Element {
   type_flg: string;
@@ -189,7 +192,9 @@ export class S005Component implements OnInit {
 
   ngOnInit(): void {
   }
-  constructor(private router: Router) {}
+
+  constructor(public dialog: MatDialog,private router: Router
+  ) {}
   dataSource3 = new MatTableDataSource<Element3>(ELEMENT_DATA_3);
   displayedColumns: string[] = [
     'select',
@@ -238,5 +243,18 @@ export class S005Component implements OnInit {
 
     // this.location.back(); // 使用Location服务来导航到上一页
 
+  }
+
+  // 一時保存
+  temporarySave(){
+    const dialogRef = this.dialog.open(PopupTemporarySaveComponent, {
+      width: '600px',  // 设置对话框的宽度
+      height: '300px'  // 设置对话框的高度
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.router.navigate(['/auto-x/s001/s001']);
+      }
+    });
   }
 }

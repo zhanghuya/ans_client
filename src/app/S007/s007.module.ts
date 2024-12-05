@@ -8,6 +8,7 @@ import { F305Component } from './f305/f305.component';
 import { F306Component } from './f306/f306.component';
 import { F307Component } from './f307/f307.component';
 import { F308Component } from './f308/f308.component';
+import { S007Component } from './s007/s007.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { F308Component } from './f308/f308.component';
     F306Component,
     F307Component,
     F308Component,
+    S007Component,
   ]
 })
 export class S007Module { }

@@ -5,6 +5,7 @@ import { CommonsRoutingModule } from './commons-routing.module';
 import { GetMasterDataComponent } from './get-master-data/get-master-data.component';
 import { GetMasterUpdateComponent } from './get-master-update/get-master-update.component';
 import { GetMasterPreviewComponent } from './get-master-preview/get-master-preview.component';
+import { PopupTemporarySaveComponent } from './popup-temporary-save/popup-temporary-save.component';
 
 @NgModule({
   declarations: [],
@@ -13,7 +14,8 @@ import { GetMasterPreviewComponent } from './get-master-preview/get-master-previ
     CommonsRoutingModule,
     GetMasterDataComponent,
     GetMasterUpdateComponent,
-    GetMasterPreviewComponent
+    GetMasterPreviewComponent,
+    PopupTemporarySaveComponent
   ]
 })
 export class CommonsModule { }
