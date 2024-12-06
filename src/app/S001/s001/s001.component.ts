@@ -1,17 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MaterialModule } from '../../material.module';
 import { Router } from '@angular/router';
+import { LibsModule } from '../../libs/libs.module';
 
 @Component({
   selector: 'app-s001',
   standalone: true,
-  imports: [MaterialModule, FormsModule],
+  imports: [MaterialModule, FormsModule, LibsModule, ReactiveFormsModule],
   templateUrl: './s001.component.html',
   styleUrl: './s001.component.css'
 })
 export class S001Component implements OnInit {
-  constructor(private router: Router) {}
+  searchForm: FormGroup;
+
+  constructor(private fb: FormBuilder, private router: Router) {
+    this.searchForm = this.fb.group({
+      year: ['', [Validators.required]],
+      month: ['', [Validators.required]],
+    });
+  }
+
 
   displayedColumns: string[] = ['company', 'estimate', 'invoice'];
   dataSource = [
@@ -39,8 +48,11 @@ export class S001Component implements OnInit {
     console.log('請求処理を実行しました');
   }
 
-  search(){
-
+  onSearch(){
+    const formValues = this.searchForm.value;
+    console.log(this.searchForm.get('year')?.value);
+    console.log('Month:', formValues.month);
+    console.log('Year:', formValues.year);
   }
 
   onRowDoubleClick() {
