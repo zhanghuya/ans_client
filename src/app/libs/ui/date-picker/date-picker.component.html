@@ -1,0 +1,15 @@
+<mat-form-field appearance="fill" [class]="customClass" [style.width]="width">
+  <mat-label>{{ label }}</mat-label>
+  <input matInput
+         [matDatepicker]="picker"
+         [value]="value | dateFormat:'YYYY'"
+         [placeholder]="placeholder"
+         (dateChange)="handleDateChange($event)"
+         [disabled]="isDisabled"/>
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker
+                  [startView]="getStartView()"
+                  (yearSelected)="onYearSelected($event,picker)"
+                  (monthSelected)="onMonthSelected($event,picker)">
+  </mat-datepicker>
+</mat-form-field>

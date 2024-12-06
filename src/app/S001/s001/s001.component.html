@@ -27,24 +27,15 @@
 
       <!--検索条件-->
       <div class="filter-card-container">
-        <mat-form-field appearance="fill" style="width: 100%">
-          <mat-label>対象年份</mat-label>
-          <mat-select>
-            <mat-option></mat-option>
-          </mat-select>
-        </mat-form-field>
-
-        <mat-form-field appearance="fill" style="width: 100%">
-          <mat-label>対象月份</mat-label>
-          <mat-select>
-            <mat-option></mat-option>
-          </mat-select>
-        </mat-form-field>
-
-        <button mat-raised-button color="primary" style="width: 100%">
-          <mat-icon>search</mat-icon>
-          検索
-        </button>
+        <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
+          <app-date-picker mode="year" label="対象年份" formControlName="year"></app-date-picker>
+          <!-- <app-date-picker mode="month" label="対象月份" formControlName="month"></app-date-picker> -->
+          <app-date-picker label="対象月份" formControlName="month"></app-date-picker>
+          <button mat-raised-button color="primary" style="width: 100%">
+            <mat-icon>search</mat-icon>
+            検索
+          </button>
+        </form>
       </div>
     </div>
   </mat-card-content>

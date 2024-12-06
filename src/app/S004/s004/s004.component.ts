@@ -1,3 +1,4 @@
+
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -17,6 +18,7 @@ import { WinService } from '../../service/win.service';
 @Component({
   selector: 'app-s004',
   standalone: true,
+
   imports: [
     MaterialModule,
     FormsModule,
@@ -34,4 +36,5 @@ export class S004Component implements OnInit {
 
 
   }
+
 }
