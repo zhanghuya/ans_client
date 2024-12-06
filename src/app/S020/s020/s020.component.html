@@ -1,0 +1,87 @@
+<mat-card>
+    <mat-card-content style="height: 82vh;overflow-y: auto">
+        <div fxLayout="row" fxLayoutAlign="end center" style="margin: 15px 0 15px 0;">
+            <button mat-raised-button color="primary" fxFlex="10" (click)="goBack()"
+                style="float: right; background-color: white; color: blue">
+                <mat-icon>arrow_back</mat-icon>
+                戻る
+            </button>
+        </div>
+
+        <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+            <div fxLayout="row" fxLayoutAlign="start stretch">
+              <!-- left fileupload -->
+              <div fxFlex="40" class="left-pane">
+                <div class="file-upload-container">
+                    <div class="file-upload-box">
+                      <div (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onFileDrop($event)">
+                        <p class="drag-text">見積書をここにドロップ</p>
+                      </div>
+                      <button mat-raised-button color="primary" (click)="onSelectFile()">ファイル追加</button>
+                    </div>
+                </div>
+                <div fxLayout="row" class="file-size-text">※ファイルサイスの20MB</div>
+              </div>
+          
+              <!-- 右：FORM-->
+              <div fxFlex="60" class="right-pane" fxLayout="column" fxLayoutGap="16px">
+                <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px">
+                  <mat-form-field fxFlex>
+                    <mat-label>件名</mat-label>
+                    <input matInput placeholder="件名入力してください。" formControlName="fileName" />
+                  </mat-form-field>
+                </div>
+          
+                <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px">
+                  <mat-form-field fxFlex>
+                    <mat-label>代理店名</mat-label>
+                    <mat-select formControlName="fileType">
+                      <mat-option *ngFor="let type of fileTypes" [value]="type">
+                        {{ type }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+          
+                <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px">
+                  <mat-form-field fxFlex>
+                    <mat-label>見積額</mat-label>
+                    <input matInput type="number" placeholder="見積額" formControlName="amount" />
+                  </mat-form-field>
+                </div>
+          
+                <div fxLayout="column">
+                  <h3>品名：</h3>
+                  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="width: 100%;">
+                    <ng-container matColumnDef="name">
+                      <th mat-header-cell *matHeaderCellDef> 開催日 </th>
+                      <td mat-cell *matCellDef="let element; let i = index">
+                        <mat-form-field appearance="outline" style="width: 100%;">
+                          <input matInput formControlName="name-{{ i }}" placeholder="開催日" />
+                        </mat-form-field>
+                      </td>
+                    </ng-container>
+          
+                    <ng-container matColumnDef="quantity">
+                      <th mat-header-cell *matHeaderCellDef> 品名 </th>
+                      <td mat-cell *matCellDef="let element; let i = index">
+                        <mat-form-field appearance="outline" style="width: 100%;">
+                          <input matInput type="number" formControlName="quantity-{{ i }}" placeholder="品名" />
+                        </mat-form-field>
+                      </td>
+                    </ng-container>
+          
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                  </table>
+                </div>
+          
+                <div fxLayout="row" fxLayoutAlign="end center" style="margin-top: 16px;">
+                  <button mat-raised-button color="primary" type="submit">登録</button>
+                </div>
+              </div>
+            </div>
+        </form>          
+    </mat-card-content>
+</mat-card>
+  

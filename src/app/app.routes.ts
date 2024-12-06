@@ -28,8 +28,9 @@ export const routes: Routes = [
     { path: 's014', loadChildren: () => import('./S014/s014.module').then(m => m.S014Module) },
     { path: 's019', loadChildren: () => import('./S019/s019.module').then(m => m.S019Module) },
     { path: 'commons', loadChildren: () => import('./commons/commons.module').then(m => m.CommonsModule) },
+    { path: 's020', loadChildren: () => import('./S020/s020.module').then(m => m.S020Module) },
     { path: 's022', loadChildren: () => import('./S022/s022.module').then(m => m.S022Module) },
-
+    { path: 's024', loadChildren: () => import('./S024/s024.module').then(m => m.S024Module) },
     ]}
     
 ];

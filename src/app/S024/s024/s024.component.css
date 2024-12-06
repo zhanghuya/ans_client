@@ -1,0 +1,36 @@
+.container {
+    margin: 16px;
+}
+
+.left-pane {
+    margin-right: 16px;
+}
+
+.right-pane {
+    padding: 16px;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+
+
+
+.file-upload-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+  }
+  
+  .file-upload-box {
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+    border: 2px dashed #bbb;
+    border-radius: 8px;
+    text-align: center;
+    position: relative;
+    background-color: #f0f8ff;
+  }

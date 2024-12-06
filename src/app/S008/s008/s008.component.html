@@ -1,1 +1,57 @@
-<p>s008 works!</p>
+<mat-card>
+    <mat-card-content style="height: 82vh;overflow-y: auto">
+        <div fxLayout="row" fxLayoutAlign="end center" style="margin: 15px 0 15px 0;">
+            <button mat-raised-button color="primary" fxFlex="10" (click)="goBack()"
+                style="float: right; background-color: white; color: blue">
+                <mat-icon>arrow_back</mat-icon>
+                戻る
+            </button>
+        </div>
+
+        <div>
+            <p class="div-title">減算ルール</p>
+            <p class="div-title">請求書ファイル命名規則</p>
+            <mat-form-field fxLayout="column">
+                <mat-label>請求書ファイル命名規則</mat-label>
+                <input matInput placeholder="" />
+            </mat-form-field>
+
+            <p class="div-title">請求書番号発番ルール</p>
+            <mat-form-field fxLayout="column">
+                <mat-label>請求番号発番ルール</mat-label>
+                <input matInput placeholder="" />
+            </mat-form-field>
+
+            <p class="div-title">振込期日設定ルール</p>
+            <div fxLayout="row" fxLayoutGap="10px">
+                <mat-form-field appearance="fill">
+                    <mat-label>月</mat-label>
+                    <mat-select>
+                        <mat-option>-定額減算-</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field style="margin-left: 10px;">
+                    <input matInput placeholder="￥0" />
+                </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayoutGap="10px">
+                <mat-form-field appearance="fill">
+                    <mat-label>日付</mat-label>
+                    <mat-select>
+                        <mat-option>-定額減算-</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field style="margin-left: 10px;">
+                    <input matInput placeholder="￥0" />
+                </mat-form-field>
+            </div>
+            支払期日が土日祝の場合：
+            <form>
+                <mat-checkbox>前営業日</mat-checkbox>
+                <mat-checkbox>後営業日</mat-checkbox>
+                <mat-checkbox>考慮しない</mat-checkbox>
+                <!-- 添加更多复选框 -->
+            </form>
+        </div>
+    </mat-card-content>
+</mat-card>
