@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer'
 import { Router } from '@angular/router';
 import { WinService } from '../../service/win.service';
+import { DrpTableComponent } from '../../commons/drp-table/drp-table.component';
 
 
 
@@ -184,7 +185,8 @@ const ELEMENT_DATA: Element[] = [
     MaterialModule,
     FormsModule,
     CommonModule,
-    NgxExtendedPdfViewerModule],
+    NgxExtendedPdfViewerModule,
+    DrpTableComponent],
   templateUrl: './s002.component.html',
   styleUrl: './s002.component.css'
 })

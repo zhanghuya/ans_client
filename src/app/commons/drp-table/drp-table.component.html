@@ -1,0 +1,46 @@
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" multiTemplateDataRows>
+    <!-- 列定义 -->
+    <ng-container matColumnDef="expand">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button (click)="toggleRow(element)">
+          <mat-icon>{{ expandedElement === element ? 'remove' : 'add' }}</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element" 
+          [ngClass]="{'highlight': selectedRow === element}" 
+          (click)="selectRow(element)">
+        {{ element.name }}
+      </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="position">
+      <th mat-header-cell *matHeaderCellDef> Position </th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.position }}
+      </td>
+    </ng-container>
+  
+    <!-- 表头 -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  
+    <!-- 普通行 -->
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" 
+        [class.expanded-row]="expandedElement === row">
+    </tr>
+  
+    <!-- 扩展行 -->
+    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="expanded-detail-row"
+        *ngIf="expandedElement === row">
+      <td colspan="3">
+        <div class="detail">
+          Additional Information: {{ row.detail }}
+        </div>
+      </td>
+    </tr>
+  </table>
+  

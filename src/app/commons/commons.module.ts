@@ -6,6 +6,7 @@ import { GetMasterDataComponent } from './get-master-data/get-master-data.compon
 import { GetMasterUpdateComponent } from './get-master-update/get-master-update.component';
 import { GetMasterPreviewComponent } from './get-master-preview/get-master-preview.component';
 import { PopupTemporarySaveComponent } from './popup-temporary-save/popup-temporary-save.component';
+import { DrpTableComponent } from './drp-table/drp-table.component';
 
 @NgModule({
   declarations: [],
@@ -15,7 +16,8 @@ import { PopupTemporarySaveComponent } from './popup-temporary-save/popup-tempor
     GetMasterDataComponent,
     GetMasterUpdateComponent,
     GetMasterPreviewComponent,
-    PopupTemporarySaveComponent
+    PopupTemporarySaveComponent,
+    DrpTableComponent
   ]
 })
 export class CommonsModule { }

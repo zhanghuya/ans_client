@@ -4,12 +4,14 @@ import { GetMasterDataComponent } from './get-master-data/get-master-data.compon
 import { GetMasterUpdateComponent } from './get-master-update/get-master-update.component';
 import { GetMasterPreviewComponent } from './get-master-preview/get-master-preview.component';
 import { PopupTemporarySaveComponent } from './popup-temporary-save/popup-temporary-save.component';
+import { DrpTableComponent } from './drp-table/drp-table.component';
 
 const routes: Routes = [
   { path: 'get-master-data', component: GetMasterDataComponent },
   { path: 'get-master-update', component: GetMasterUpdateComponent },
   { path: 'get-master-preview', component: GetMasterPreviewComponent },
   { path: 'popup-temporary-save', component: PopupTemporarySaveComponent },
+  { path: 'drp-table', component: DrpTableComponent },
 ];
 
 @NgModule({

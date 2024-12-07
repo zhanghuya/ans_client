@@ -20,7 +20,10 @@ import { Const } from '../../const/const';
 @Component({
   selector: 'app-mainpage',
   standalone: true,
-  imports: [MatSidenavModule, MatListModule, MatIconModule, RouterModule, SidebarComponent, MaterialModule, NgxExtendedPdfViewerModule, CommonModule],
+  imports: [MatSidenavModule, MatListModule, MatIconModule, RouterModule, SidebarComponent, MaterialModule,
+    NgxExtendedPdfViewerModule,
+
+    CommonModule],
 
   templateUrl: './mainpage.component.html',
   styleUrl: './mainpage.component.css'
