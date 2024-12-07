@@ -34,13 +34,6 @@
     </tr>
   
     <!-- 扩展行 -->
-    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="expanded-detail-row"
-        *ngIf="expandedElement === row">
-      <td colspan="3">
-        <div class="detail">
-          Additional Information: {{ row.detail }}
-        </div>
-      </td>
-    </tr>
+
   </table>
   
