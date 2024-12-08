@@ -14,9 +14,15 @@ import { Router } from '@angular/router';
 import { WinService } from '../../service/win.service';
 import { DrpTableComponent } from '../../commons/drp-table/drp-table.component';
 
-
-
-export interface Element {
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { ChangeDetectorRef } from '@angular/core';
+import { CdkColumnDef } from '@angular/cdk/table';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
+export interface Element { 
   type_flg: string;
   agency_name: string;
   participating_store: string;
@@ -186,18 +192,33 @@ const ELEMENT_DATA: Element[] = [
     FormsModule,
     CommonModule,
     NgxExtendedPdfViewerModule,
-    DrpTableComponent],
+    CommonModule,
+    MatTableModule,
+    MatIconModule,
+    MatButtonModule,
+    MatSortModule,
+    MatPaginatorModule,
+    DrpTableComponent
+],
   templateUrl: './s002.component.html',
   styleUrl: './s002.component.css'
 })
 export class S002Component implements OnInit {
   @Output() flagChanged = new EventEmitter<boolean>();
   mPageFlg: boolean = false; 
+  private apiUrl = 'http://127.0.0.1:8000';
   constructor(private router: Router,
-    private win: WinService
+    private win: WinService,
+    private cdr: ChangeDetectorRef,
+    private http: HttpClient
   ) {}
-
   ngOnInit(): void {
+
+    // const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    // this.http.post(this.apiUrl, {'user_mail' : 'fff', 'user_name' : 'd'}, { headers });
+     this.http.post<any>(this.apiUrl + '/sample/search', {'user_mail' : 'fff', 'user_name' : 'd'});  // 替换为你的具体端点
+
+
   }
   dataSource2 = new MatTableDataSource<Element2>([])
   displayedColumns: string[] = [
@@ -227,6 +248,16 @@ export class S002Component implements OnInit {
     'amount',
   ];
   search(){
+    this.http.get<any>(this.apiUrl + '/sample/search');  // 替换为你的具体端点
+    const params = new HttpParams()
+    .set('user_mail', 'fff')
+    .set('user_name', 'd');
+    this.http.post<any>(this.apiUrl + '/sample/search', null, { params }).subscribe(response => {
+      console.log(response);
+      }, error => {
+        console.error('Error posting data', error);
+      });
+    
     this.dataSource2 = new MatTableDataSource<Element2>(ELEMENT_DATA_2);
   }
 

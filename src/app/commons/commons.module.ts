@@ -7,9 +7,11 @@ import { GetMasterUpdateComponent } from './get-master-update/get-master-update.
 import { GetMasterPreviewComponent } from './get-master-preview/get-master-preview.component';
 import { PopupTemporarySaveComponent } from './popup-temporary-save/popup-temporary-save.component';
 import { DrpTableComponent } from './drp-table/drp-table.component';
-
+import { CdkColumnDef } from '@angular/cdk/table';
 @NgModule({
-  declarations: [],
+  declarations: [
+
+  ],
   imports: [
     CommonModule,
     CommonsRoutingModule,
@@ -17,7 +19,12 @@ import { DrpTableComponent } from './drp-table/drp-table.component';
     GetMasterUpdateComponent,
     GetMasterPreviewComponent,
     PopupTemporarySaveComponent,
+    CdkColumnDef,
     DrpTableComponent
+  ],
+  exports: [
+    DrpTableComponent // 导出以便其他模块使用
   ]
+
 })
 export class CommonsModule { }
