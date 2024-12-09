@@ -1,0 +1,39 @@
+.file-upload-container {
+  height: 60vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  position: relative;
+  background-color: #f3f6f8;
+}
+
+.file-upload-box {
+  width: 100%;
+  max-width: 500px;
+  padding: 20px;
+  border: 2px dashed #bbb;
+  border-radius: 8px;
+  text-align: center;
+  position: relative;
+  background-color: #f0f8ff;
+}
+
+.uploaded-files {
+  margin-top: 15px;
+}
+
+.file-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.file-item button {
+  margin-left: 10px;
+}
