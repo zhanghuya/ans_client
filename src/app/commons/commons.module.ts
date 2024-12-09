@@ -8,6 +8,7 @@ import { GetMasterPreviewComponent } from './get-master-preview/get-master-previ
 import { PopupTemporarySaveComponent } from './popup-temporary-save/popup-temporary-save.component';
 import { DrpTableComponent } from './drp-table/drp-table.component';
 import { CdkColumnDef } from '@angular/cdk/table';
+import { FileUploadComponent } from './file-upload/file-upload.component';
 @NgModule({
   declarations: [
 
@@ -20,10 +21,12 @@ import { CdkColumnDef } from '@angular/cdk/table';
     GetMasterPreviewComponent,
     PopupTemporarySaveComponent,
     CdkColumnDef,
-    DrpTableComponent
+    DrpTableComponent,
+    FileUploadComponent
   ],
   exports: [
-    DrpTableComponent // 导出以便其他模块使用
+    DrpTableComponent,
+    FileUploadComponent
   ]
 
 })
