@@ -154,7 +154,6 @@ COMMENT ON COLUMN UNIT_PRICE_INFO.CREATION_DATE IS '作成日';
 COMMENT ON COLUMN UNIT_PRICE_INFO.CREATOR IS '作成者';
 COMMENT ON COLUMN UNIT_PRICE_INFO.LAST_UPDATE_DATE IS '最終更新日';
 COMMENT ON COLUMN UNIT_PRICE_INFO.LAST_UPDATER IS '最終更新者';
-
 -- 案件マスタ情報
 -- テーブルの削除
 DROP TABLE IF EXISTS MATTER_MASTER_INFO CASCADE;
@@ -168,7 +167,7 @@ CREATE SEQUENCE MATTER_MASTER_INFO_SEQ START WITH 1 INCREMENT BY 1;
 -- テーブルの作成
 CREATE TABLE MATTER_MASTER_INFO (
     ID INT PRIMARY KEY DEFAULT nextval('MATTER_MASTER_INFO_SEQ'),
-    NO INT,
+    NO VARCHAR(255),
     REJECTION VARCHAR(255),
     STAFF_OPERATION_DETAILS VARCHAR(255),
     AGENT_BY_NAME VARCHAR(255),
@@ -201,7 +200,10 @@ CREATE TABLE MATTER_MASTER_INFO (
     CREATION_DATE DATE,
     CREATOR VARCHAR(255),
     LAST_UPDATE_DATE DATE,
-    LAST_UPDATER VARCHAR(255)
+    LAST_UPDATER VARCHAR(255),
+    GOOGLE_EXCEL_NAME VARCHAR(255),
+	GOOGLE_EXCEL_SHEET_NAME VARCHAR(255)
+
 );
 
 -- テーブルのコメント追加
@@ -239,6 +241,8 @@ COMMENT ON COLUMN MATTER_MASTER_INFO.CREATION_DATE IS '作成日';
 COMMENT ON COLUMN MATTER_MASTER_INFO.CREATOR IS '作成者';
 COMMENT ON COLUMN MATTER_MASTER_INFO.LAST_UPDATE_DATE IS '最終更新日';
 COMMENT ON COLUMN MATTER_MASTER_INFO.LAST_UPDATER IS '最終更新者';
+COMMENT ON COLUMN MATTER_MASTER_INFO.GOOGLE_EXCEL_NAME IS 'googleEXCELファイル名';
+COMMENT ON COLUMN MATTER_MASTER_INFO.GOOGLE_EXCEL_SHEET_NAME IS 'googleEXCELファイルシート名';
 
 ----------------------------------------------------------
 -- 見積情報
@@ -293,8 +297,11 @@ CREATE TABLE ESTIMATION_INFO (
     EMAIL_CREATION_ID INT,
     CREATION_DATE DATE,
     CREATOR VARCHAR(255),
+    TEMPORARY_SAVE_FLG VARCHAR(1),
     LAST_UPDATE_DATE DATE,
-    LAST_UPDATER VARCHAR(255)
+    LAST_UPDATER VARCHAR(255),
+    GOOGLE_EXCEL_NAME VARCHAR(255),
+	GOOGLE_EXCEL_SHEET_NAME VARCHAR(255)
 );
 
 -- テーブルのコメント追加
@@ -339,8 +346,9 @@ COMMENT ON COLUMN ESTIMATION_INFO.CREATION_DATE IS '作成日';
 COMMENT ON COLUMN ESTIMATION_INFO.CREATOR IS '作成者';
 COMMENT ON COLUMN ESTIMATION_INFO.LAST_UPDATE_DATE IS '最終更新日';
 COMMENT ON COLUMN ESTIMATION_INFO.LAST_UPDATER IS '最終更新者';
-
-
+COMMENT ON COLUMN ESTIMATION_INFO.TEMPORARY_SAVE_FLG IS '一時保存フラグ';
+COMMENT ON COLUMN ESTIMATION_INFO.GOOGLE_EXCEL_NAME IS 'googleEXCELファイル名';
+COMMENT ON COLUMN ESTIMATION_INFO.GOOGLE_EXCEL_SHEET_NAME IS 'googleEXCELファイルシート名';
 -- 見積請求作成情報
 -- テーブルの削除
 DROP TABLE IF EXISTS QUOTATION_CLAIM_CREATION_INFO CASCADE;
@@ -539,4 +547,49 @@ COMMENT ON COLUMN PERSON_CHARGE_INFO.LAST_UPDATER IS '最終更新者';
 
 -- 外鍵の追加
 ALTER TABLE PERSON_CHARGE_INFO ADD CONSTRAINT FK_PARTNER_STORE_ID FOREIGN KEY (PARTNER_STORE_ID) REFERENCES BUSINESS_PARTNER_STORE(ID);
+
+-- 一時保存記録
+-- テーブルの削除
+DROP TABLE IF EXISTS temporary_save_info CASCADE;
+
+-- シークエンスの削除
+DROP SEQUENCE IF EXISTS temporary_save_info_seq;
+-- 创建 SEQUENCE
+CREATE SEQUENCE temporary_save_info_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+-- 创建表
+CREATE TABLE temporary_save_info (
+    id INT DEFAULT nextval('temporary_save_info_seq') PRIMARY KEY, -- 主键，使用 SEQUENCE 自动递增
+    google_excel_name VARCHAR(255), -- googleEXCELファイル名
+    google_excel_sheet_name VARCHAR(255), -- googleEXCELファイルシート名
+    temporary_save_type VARCHAR(255), -- 一時保存タイプ
+    exe_date DATE, -- 実行日
+    exe_name VARCHAR(255), -- 名称
+    creation_date DATE, -- 作成日
+    creator VARCHAR(255), -- 作成者
+    del_flg VARCHAR(1), -- 削除フラグ
+    last_update_date DATE, -- 最終更新日
+    last_updater VARCHAR(255) -- 最終更新者
+);
+-- 添加注释
+COMMENT ON TABLE temporary_save_info IS '一時保存記録';
+COMMENT ON COLUMN temporary_save_info.id IS 'ID';
+COMMENT ON COLUMN temporary_save_info.google_excel_name IS 'googleEXCELファイル名';
+COMMENT ON COLUMN temporary_save_info.google_excel_sheet_name IS 'googleEXCELファイルシート名';
+COMMENT ON COLUMN temporary_save_info.temporary_save_type IS '一時保存タイプ';
+COMMENT ON COLUMN temporary_save_info.exe_date IS '実行日';
+COMMENT ON COLUMN temporary_save_info.exe_name IS '名称';
+COMMENT ON COLUMN temporary_save_info.creation_date IS '作成日';
+COMMENT ON COLUMN temporary_save_info.creator IS '作成者';
+COMMENT ON COLUMN temporary_save_info.del_flg IS '削除フラグ';
+COMMENT ON COLUMN temporary_save_info.last_update_date IS '最終更新日';
+COMMENT ON COLUMN temporary_save_info.last_updater IS '最終更新者';
+-- 设置 SEQUENCE 和主键关联
+ALTER SEQUENCE temporary_save_info_seq OWNED BY temporary_save_info.id;
+
 
