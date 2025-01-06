@@ -167,6 +167,7 @@ CREATE SEQUENCE MATTER_MASTER_INFO_SEQ START WITH 1 INCREMENT BY 1;
 -- テーブルの作成
 CREATE TABLE MATTER_MASTER_INFO (
     ID INT PRIMARY KEY DEFAULT nextval('MATTER_MASTER_INFO_SEQ'),
+    MATTER_MASTER_EXE_ID INT,
     NO VARCHAR(255),
     REJECTION VARCHAR(255),
     STAFF_OPERATION_DETAILS VARCHAR(255),
@@ -208,6 +209,7 @@ CREATE TABLE MATTER_MASTER_INFO (
 
 -- テーブルのコメント追加
 COMMENT ON COLUMN MATTER_MASTER_INFO.NO IS 'No';
+COMMENT ON COLUMN MATTER_MASTER_INFO.MATTER_MASTER_EXE_ID IS '案件情報取得処理ID';
 COMMENT ON COLUMN MATTER_MASTER_INFO.REJECTION IS 'お断り';
 COMMENT ON COLUMN MATTER_MASTER_INFO.STAFF_OPERATION_DETAILS IS 'スタッフ向け稼働詳細';
 COMMENT ON COLUMN MATTER_MASTER_INFO.AGENT_BY_NAME IS '代理店向けバイネーム';
@@ -259,6 +261,7 @@ CREATE SEQUENCE ESTIMATION_INFO_SEQ START WITH 1 INCREMENT BY 1;
 CREATE TABLE ESTIMATION_INFO (
     ID INT PRIMARY KEY DEFAULT nextval('ESTIMATION_INFO_SEQ'),
     NO INT,
+    MATTER_MASTER_EXE_ID INT,
     REJECTION VARCHAR(255),
     STAFF_OPERATION_DETAILS VARCHAR(255),
     AGENT_BY_NAME VARCHAR(255),
@@ -306,6 +309,8 @@ CREATE TABLE ESTIMATION_INFO (
 
 -- テーブルのコメント追加
 COMMENT ON COLUMN ESTIMATION_INFO.NO IS 'No';
+COMMENT ON COLUMN ESTIMATION_INFO.MATTER_MASTER_EXE_ID IS '案件情報取得処理ID';
+
 COMMENT ON COLUMN ESTIMATION_INFO.REJECTION IS 'お断り';
 COMMENT ON COLUMN ESTIMATION_INFO.STAFF_OPERATION_DETAILS IS 'スタッフ向け稼働詳細';
 COMMENT ON COLUMN ESTIMATION_INFO.AGENT_BY_NAME IS '代理店向けバイネーム';
@@ -565,6 +570,7 @@ CREATE SEQUENCE temporary_save_info_seq
 -- 创建表
 CREATE TABLE temporary_save_info (
     id INT DEFAULT nextval('temporary_save_info_seq') PRIMARY KEY, -- 主键，使用 SEQUENCE 自动递增
+    matter_master_exe_id INT，
     google_excel_name VARCHAR(255), -- googleEXCELファイル名
     google_excel_sheet_name VARCHAR(255), -- googleEXCELファイルシート名
     temporary_save_type VARCHAR(255), -- 一時保存タイプ
@@ -579,6 +585,7 @@ CREATE TABLE temporary_save_info (
 -- 添加注释
 COMMENT ON TABLE temporary_save_info IS '一時保存記録';
 COMMENT ON COLUMN temporary_save_info.id IS 'ID';
+COMMENT ON COLUMN temporary_save_info.matter_master_exe_id IS '案件情報取得処理ID';
 COMMENT ON COLUMN temporary_save_info.google_excel_name IS 'googleEXCELファイル名';
 COMMENT ON COLUMN temporary_save_info.google_excel_sheet_name IS 'googleEXCELファイルシート名';
 COMMENT ON COLUMN temporary_save_info.temporary_save_type IS '一時保存タイプ';
@@ -593,3 +600,12 @@ COMMENT ON COLUMN temporary_save_info.last_updater IS '最終更新者';
 ALTER SEQUENCE temporary_save_info_seq OWNED BY temporary_save_info.id;
 
 
+-- 创建 SEQUENCE
+-- 毎回案件情報取得の時登録用
+DROP SEQUENCE IF EXISTS matter_master_exe_seq;
+CREATE SEQUENCE matter_master_exe_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
