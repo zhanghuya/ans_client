@@ -599,3 +599,89 @@ COMMENT ON COLUMN temporary_save_info.last_updater IS '最終更新者';
 -- 设置 SEQUENCE 和主键关联
 ALTER SEQUENCE temporary_save_info_seq OWNED BY temporary_save_info.id;
 
+-- 创建送付情報表
+-- テーブルの削除
+DROP TABLE IF EXISTS delivery_info CASCADE;
+
+-- シークエンスの削除
+DROP SEQUENCE IF EXISTS delivery_info_id_seq;
+-- 创建自定义的 sequence
+CREATE SEQUENCE delivery_info_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+-- 创建送付情報表
+CREATE TABLE delivery_info (
+    -- ID: 主键，自动递增
+    ID INT PRIMARY KEY DEFAULT nextval('delivery_info_id_seq'),
+
+    -- 送付対象标志
+    delivery_flg VARCHAR(1),
+
+    -- 送付先地址
+    shipping_address VARCHAR(255),
+
+    -- 店铺地址设置
+    store_address_settings VARCHAR(255),
+
+    -- 代理店名称
+    agent_name VARCHAR(255),
+
+    -- 件名
+    subject_name VARCHAR(255),
+
+    -- 金额
+    amount VARCHAR(255),
+
+    -- 日期
+    var_date VARCHAR(255),
+
+    -- 案件信息获取处理ID
+    MATTER_MASTER_EXE_ID BIGINT,
+
+    -- Google Excel 文件名
+    GOOGLE_EXCEL_NAME VARCHAR(255),
+
+    -- Google Excel 文件的表单名称
+    GOOGLE_EXCEL_SHEET_NAME VARCHAR(255),
+
+    -- 创建日期
+    CREATION_DATE DATE,
+
+    -- 创建者
+    CREATOR VARCHAR(255),
+
+    -- 删除标志
+    DEL_FLG VARCHAR(1),
+
+    -- 最后更新时间
+    LAST_UPDATE_DATE DATE,
+
+    -- 最后更新者
+    LAST_UPDATER VARCHAR(255)
+);
+
+-- 为表添加注释
+COMMENT ON TABLE delivery_info IS '送付情報テーブル';
+
+-- 为列添加注释
+COMMENT ON COLUMN delivery_info.ID IS '主键，自动递增';
+COMMENT ON COLUMN delivery_info.delivery_flg IS '送付対象';
+COMMENT ON COLUMN delivery_info.shipping_address IS '送付先';
+COMMENT ON COLUMN delivery_info.store_address_settings IS '店舗アドレス設定';
+COMMENT ON COLUMN delivery_info.agent_name IS '代理店名';
+COMMENT ON COLUMN delivery_info.subject_name IS '件名';
+COMMENT ON COLUMN delivery_info.amount IS '金額';
+COMMENT ON COLUMN delivery_info.var_date IS '日付';
+COMMENT ON COLUMN delivery_info.MATTER_MASTER_EXE_ID IS '案件情報取得処理ID';
+COMMENT ON COLUMN delivery_info.GOOGLE_EXCEL_NAME IS 'googleEXCELファイル名';
+COMMENT ON COLUMN delivery_info.GOOGLE_EXCEL_SHEET_NAME IS 'googleEXCELファイルシート名';
+COMMENT ON COLUMN delivery_info.CREATION_DATE IS '作成日';
+COMMENT ON COLUMN delivery_info.CREATOR IS '作成者';
+COMMENT ON COLUMN delivery_info.DEL_FLG IS '削除フラグ';
+COMMENT ON COLUMN delivery_info.LAST_UPDATE_DATE IS '最終更新日';
+COMMENT ON COLUMN delivery_info.LAST_UPDATER IS '最終更新者';
+
