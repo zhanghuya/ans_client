@@ -624,8 +624,17 @@ CREATE TABLE delivery_info (
     -- 送付先地址
     shipping_address VARCHAR(255),
 
+    -- 会社id
+    company_id INT,
+
+    -- 会社名称
+    company_name VARCHAR(255),
+
     -- 店铺地址设置
     store_address_settings VARCHAR(255),
+
+    -- 代理店id
+    agent_id INT,
 
     -- 代理店名称
     agent_name VARCHAR(255),
@@ -634,8 +643,26 @@ CREATE TABLE delivery_info (
     subject_name VARCHAR(255),
 
     -- 金额
-    amount VARCHAR(255),
+    amount NUMERIC(10, 2),
 
+    -- 第1週の合計金額
+    WEEK1_AMOUNT NUMERIC(10, 2),
+
+    -- 第2週の合計金額
+    WEEK2_AMOUNT NUMERIC(10, 2),
+
+    -- 第3週の合計金額 
+    WEEK3_AMOUNT NUMERIC(10, 2), 
+
+    -- 第4週の合計金額
+    WEEK4_AMOUNT NUMERIC(10, 2),
+
+    -- 第5週の合計金額 
+    WEEK5_AMOUNT NUMERIC(10, 2), 
+
+    -- 見積請求区分（例: 見積または請求）
+    ESTIMATION_REQUEST_TYPE INT,
+   
     -- 日期
     var_date VARCHAR(255),
 
@@ -671,10 +698,19 @@ COMMENT ON TABLE delivery_info IS '送付情報テーブル';
 COMMENT ON COLUMN delivery_info.ID IS 'ID';
 COMMENT ON COLUMN delivery_info.delivery_flg IS '送付対象';
 COMMENT ON COLUMN delivery_info.shipping_address IS '送付先';
+COMMENT ON COLUMN delivery_info.company_id IS '会社id';
+COMMENT ON COLUMN delivery_info.company_name IS '会社名';
 COMMENT ON COLUMN delivery_info.store_address_settings IS '店舗アドレス設定';
+COMMENT ON COLUMN delivery_info.agent_id IS '代理店id';
 COMMENT ON COLUMN delivery_info.agent_name IS '代理店名';
 COMMENT ON COLUMN delivery_info.subject_name IS '件名';
 COMMENT ON COLUMN delivery_info.amount IS '金額';
+COMMENT ON COLUMN delivery_info.WEEK1_AMOUNT IS '第1週合計金額';
+COMMENT ON COLUMN delivery_info.WEEK2_AMOUNT IS '第2週合計金額';
+COMMENT ON COLUMN delivery_info.WEEK3_AMOUNT IS '第3週合計金額';
+COMMENT ON COLUMN delivery_info.WEEK4_AMOUNT IS '第4週合計金額';
+COMMENT ON COLUMN delivery_info.WEEK5_AMOUNT IS '第5週合計金額';
+COMMENT ON COLUMN delivery_info.ESTIMATION_REQUEST_TYPE IS '第5週合計金額';
 COMMENT ON COLUMN delivery_info.var_date IS '日付';
 COMMENT ON COLUMN delivery_info.MATTER_MASTER_EXE_ID IS '案件情報取得処理ID';
 COMMENT ON COLUMN delivery_info.GOOGLE_EXCEL_NAME IS 'googleEXCELファイル名';
