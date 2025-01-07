@@ -668,7 +668,7 @@ CREATE TABLE delivery_info (
 COMMENT ON TABLE delivery_info IS '送付情報テーブル';
 
 -- 为列添加注释
-COMMENT ON COLUMN delivery_info.ID IS '主键，自动递增';
+COMMENT ON COLUMN delivery_info.ID IS 'ID';
 COMMENT ON COLUMN delivery_info.delivery_flg IS '送付対象';
 COMMENT ON COLUMN delivery_info.shipping_address IS '送付先';
 COMMENT ON COLUMN delivery_info.store_address_settings IS '店舗アドレス設定';
