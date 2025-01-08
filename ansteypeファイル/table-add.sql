@@ -316,7 +316,9 @@ CREATE TABLE ESTIMATION_INFO (
     LAST_UPDATER VARCHAR(255),
     GOOGLE_EXCEL_NAME VARCHAR(255),
 	GOOGLE_EXCEL_SHEET_NAME VARCHAR(255),
-        --  取得条件月
+    -- 取得条件年
+    conditions_year	 VARCHAR(255),
+    --  取得条件月
     conditions_month VARCHAR(255),
     -- 取得条件週
     conditions_week VARCHAR(255),
@@ -724,7 +726,7 @@ CREATE TABLE delivery_info (
     -- 取得条件代理店
     conditions_agency VARCHAR(255),
     -- 送付状態
-    delivery_status VARCHAR(1),
+    delivery_status VARCHAR(1)
 
 );
 
