@@ -662,10 +662,12 @@ CREATE TABLE delivery_info (
 
     -- 見積請求区分（例: 見積または請求）
     ESTIMATION_REQUEST_TYPE INT,
-    -- PDF作成ファイル名
-    FILE_NAME VARCHAR(255),
+    -- excel作成ファイル名
+    EXCEL_FILE_NAME VARCHAR(255),
     -- PDF作成パス
     FILE_PATH VARCHAR(255),
+    -- PDF作成ファイル名
+    PDF_FILE_NAME VARCHAR(255),
     -- 日期
     var_date VARCHAR(255),
 
