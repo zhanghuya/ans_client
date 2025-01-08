@@ -203,7 +203,15 @@ CREATE TABLE MATTER_MASTER_INFO (
     LAST_UPDATE_DATE DATE,
     LAST_UPDATER VARCHAR(255),
     GOOGLE_EXCEL_NAME VARCHAR(255),
-	GOOGLE_EXCEL_SHEET_NAME VARCHAR(255)
+	GOOGLE_EXCEL_SHEET_NAME VARCHAR(255),
+    -- 取得条件年
+    conditions_year	 VARCHAR(255),
+    --  取得条件月
+    conditions_month VARCHAR(255),
+    -- 取得条件週
+    conditions_week VARCHAR(255),
+    -- 取得条件代理店
+    conditions_agency VARCHAR(255)
 
 );
 
@@ -245,7 +253,10 @@ COMMENT ON COLUMN MATTER_MASTER_INFO.LAST_UPDATE_DATE IS '最終更新日';
 COMMENT ON COLUMN MATTER_MASTER_INFO.LAST_UPDATER IS '最終更新者';
 COMMENT ON COLUMN MATTER_MASTER_INFO.GOOGLE_EXCEL_NAME IS 'googleEXCELファイル名';
 COMMENT ON COLUMN MATTER_MASTER_INFO.GOOGLE_EXCEL_SHEET_NAME IS 'googleEXCELファイルシート名';
-
+COMMENT ON COLUMN MATTER_MASTER_INFO.conditions_year IS '取得条件年';
+COMMENT ON COLUMN MATTER_MASTER_INFO.conditions_month IS '取得条件月';
+COMMENT ON COLUMN MATTER_MASTER_INFO.conditions_week IS '取得条件週';
+COMMENT ON COLUMN MATTER_MASTER_INFO.conditions_agency IS '取得条件代理店';
 ----------------------------------------------------------
 -- 見積情報
 -- テーブルの削除
@@ -304,7 +315,13 @@ CREATE TABLE ESTIMATION_INFO (
     LAST_UPDATE_DATE DATE,
     LAST_UPDATER VARCHAR(255),
     GOOGLE_EXCEL_NAME VARCHAR(255),
-	GOOGLE_EXCEL_SHEET_NAME VARCHAR(255)
+	GOOGLE_EXCEL_SHEET_NAME VARCHAR(255),
+        --  取得条件月
+    conditions_month VARCHAR(255),
+    -- 取得条件週
+    conditions_week VARCHAR(255),
+    -- 取得条件代理店
+    conditions_agency VARCHAR(255)
 );
 
 -- テーブルのコメント追加
@@ -354,6 +371,10 @@ COMMENT ON COLUMN ESTIMATION_INFO.LAST_UPDATER IS '最終更新者';
 COMMENT ON COLUMN ESTIMATION_INFO.TEMPORARY_SAVE_FLG IS '一時保存フラグ';
 COMMENT ON COLUMN ESTIMATION_INFO.GOOGLE_EXCEL_NAME IS 'googleEXCELファイル名';
 COMMENT ON COLUMN ESTIMATION_INFO.GOOGLE_EXCEL_SHEET_NAME IS 'googleEXCELファイルシート名';
+COMMENT ON COLUMN ESTIMATION_INFO.conditions_year IS '取得条件年';
+COMMENT ON COLUMN ESTIMATION_INFO.conditions_month IS '取得条件月';
+COMMENT ON COLUMN ESTIMATION_INFO.conditions_week IS '取得条件週';
+COMMENT ON COLUMN ESTIMATION_INFO.conditions_agency IS '取得条件代理店';
 -- 見積請求作成情報
 -- テーブルの削除
 DROP TABLE IF EXISTS QUOTATION_CLAIM_CREATION_INFO CASCADE;
@@ -693,7 +714,18 @@ CREATE TABLE delivery_info (
     LAST_UPDATE_DATE DATE,
 
     -- 最后更新者
-    LAST_UPDATER VARCHAR(255)
+    LAST_UPDATER VARCHAR(255),
+    -- 取得条件年
+    conditions_year	 VARCHAR(255),
+    --  取得条件月
+    conditions_month VARCHAR(255),
+    -- 取得条件週
+    conditions_week VARCHAR(255),
+    -- 取得条件代理店
+    conditions_agency VARCHAR(255),
+    -- 送付状態
+    delivery_status VARCHAR(1),
+
 );
 
 -- 为表添加注释
@@ -720,6 +752,11 @@ COMMENT ON COLUMN delivery_info.var_date IS '日付';
 COMMENT ON COLUMN delivery_info.MATTER_MASTER_EXE_ID IS '案件情報取得処理ID';
 COMMENT ON COLUMN delivery_info.GOOGLE_EXCEL_NAME IS 'googleEXCELファイル名';
 COMMENT ON COLUMN delivery_info.GOOGLE_EXCEL_SHEET_NAME IS 'googleEXCELファイルシート名';
+COMMENT ON COLUMN delivery_info.conditions_year IS '取得条件年';
+COMMENT ON COLUMN delivery_info.conditions_month IS '取得条件月';
+COMMENT ON COLUMN delivery_info.conditions_week IS '取得条件週';
+COMMENT ON COLUMN delivery_info.conditions_agency IS '取得条件代理店';
+COMMENT ON COLUMN delivery_info.delivery_status  IS '送付状態';
 COMMENT ON COLUMN delivery_info.CREATION_DATE IS '作成日';
 COMMENT ON COLUMN delivery_info.CREATOR IS '作成者';
 COMMENT ON COLUMN delivery_info.DEL_FLG IS '削除フラグ';
