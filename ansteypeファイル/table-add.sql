@@ -659,7 +659,8 @@ CREATE TABLE delivery_info (
 
     -- 店铺地址设置
     store_address_settings VARCHAR(255),
-
+    STORE_ID  VARCHAR(255),
+    STORE_name  VARCHAR(255),
     -- 代理店id
     agent_id INT,
 
@@ -746,6 +747,8 @@ COMMENT ON COLUMN delivery_info.company_name IS '会社名';
 COMMENT ON COLUMN delivery_info.store_address_settings IS '店舗アドレス設定';
 COMMENT ON COLUMN delivery_info.agent_id IS '代理店id';
 COMMENT ON COLUMN delivery_info.agent_name IS '代理店名';
+COMMENT ON COLUMN delivery_info.STORE_ID IS '店舗ID';
+COMMENT ON COLUMN delivery_info.STORE_name IS '店舗名';
 COMMENT ON COLUMN delivery_info.subject_name IS '件名';
 COMMENT ON COLUMN delivery_info.amount IS '金額';
 COMMENT ON COLUMN delivery_info.WEEK1_AMOUNT IS '第1週合計金額';
@@ -768,6 +771,8 @@ COMMENT ON COLUMN delivery_info.CREATOR IS '作成者';
 COMMENT ON COLUMN delivery_info.DEL_FLG IS '削除フラグ';
 COMMENT ON COLUMN delivery_info.LAST_UPDATE_DATE IS '最終更新日';
 COMMENT ON COLUMN delivery_info.LAST_UPDATER IS '最終更新者';
+
+
 
 -- 見積請求集計テーブル
 -- テーブルの削除
@@ -828,3 +833,82 @@ COMMENT ON COLUMN ESTIMATION_REQUEST_SUMMARY.CREATION_DATE IS '作成日';
 COMMENT ON COLUMN ESTIMATION_REQUEST_SUMMARY.CREATOR IS '作成者';
 COMMENT ON COLUMN ESTIMATION_REQUEST_SUMMARY.LAST_UPDATE_DATE IS '最終更新日';
 COMMENT ON COLUMN ESTIMATION_REQUEST_SUMMARY.LAST_UPDATER IS '最終更新者';
+
+
+-- テーブルの削除
+DROP TABLE IF EXISTS QUOTATION_CLAIM_CREATION_INFO CASCADE;
+
+-- シークエンスの削除
+DROP SEQUENCE IF EXISTS quotation_claim_creation_info_id_seq;
+-- 创建自定义的 sequence
+CREATE SEQUENCE quotation_claim_creation_info_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+CREATE TABLE QUOTATION_CLAIM_CREATION_INFO (
+    ID  INT PRIMARY KEY DEFAULT nextval('delivery_info_id_seq'),
+    delivery_id INT, -- 送付情報ID
+    SUBJECT_1 VARCHAR(255), -- 件名1
+    BED VARCHAR(255), -- ベッダ
+    SUBJECT_2 VARCHAR(255), -- 件名2
+    MAIN_TEXT TEXT, -- 本文
+    excel_file_name VARCHAR(255), -- ファイル名 (Excel)
+    file_path VARCHAR(255), -- ファイルパス
+    pdf_file_name VARCHAR(255), -- ファイル名 (PDF)
+    CREATION_DATE DATE, -- 作成日
+    CREATOR VARCHAR(255), -- 作成者
+    LAST_UPDATE_DATE DATE, -- 最終更新日
+    LAST_UPDATER VARCHAR(255) -- 最終更新者
+);
+-- 设置 ID 列的默认值为序列值
+COMMENT ON TABLE QUOTATION_CLAIM_CREATION_INFO IS '見積請求集計テーブル';
+COMMENT ON COLUMN QUOTATION_CLAIM_CREATION_INFO.delivery_id IS '送付情報ID';
+COMMENT ON COLUMN QUOTATION_CLAIM_CREATION_INFO.SUBJECT_1 IS '件名1';
+COMMENT ON COLUMN QUOTATION_CLAIM_CREATION_INFO.BED IS 'ベッダ';
+COMMENT ON COLUMN QUOTATION_CLAIM_CREATION_INFO.SUBJECT_2 IS '件名2';
+COMMENT ON COLUMN QUOTATION_CLAIM_CREATION_INFO.MAIN_TEXT IS '本文';
+COMMENT ON COLUMN QUOTATION_CLAIM_CREATION_INFO.excel_file_name IS 'ファイル名 (Excel)';
+COMMENT ON COLUMN QUOTATION_CLAIM_CREATION_INFO.file_path IS 'ファイルパス';
+COMMENT ON COLUMN QUOTATION_CLAIM_CREATION_INFO.pdf_file_name IS 'ファイル名 (PDF)';
+COMMENT ON COLUMN QUOTATION_CLAIM_CREATION_INFO.CREATION_DATE IS '作成日';
+COMMENT ON COLUMN QUOTATION_CLAIM_CREATION_INFO.CREATOR IS '作成者';
+COMMENT ON COLUMN QUOTATION_CLAIM_CREATION_INFO.LAST_UPDATE_DATE IS '最終更新日';
+COMMENT ON COLUMN QUOTATION_CLAIM_CREATION_INFO.LAST_UPDATER IS '最終更新者';
+
+
+-- テーブルの削除
+DROP TABLE IF EXISTS to_mail_info CASCADE;
+
+-- シークエンスの削除
+DROP SEQUENCE IF EXISTS to_mail_info_id_seq;
+-- 创建自定义的 sequence
+CREATE SEQUENCE to_mail_info_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+CREATE TABLE to_mail_info (
+    id   INT PRIMARY KEY DEFAULT nextval('to_mail_info_id_seq'),
+    quotation_claim_creation_id INT,
+    last_name VARCHAR(255),
+    first_name VARCHAR(255),
+    email VARCHAR(255),
+    type_flag INT, -- 1:見積TO, 2:請求TO, 3:見積CC, 4:請求CC
+    creation_date DATE,
+    creator VARCHAR(255),
+    last_update_date DATE,
+    last_updater VARCHAR(255)
+);
+
+COMMENT ON COLUMN to_mail_info.quotation_claim_creation_id IS '求作成情報ID';
+COMMENT ON COLUMN to_mail_info.last_name IS '担当者姓';
+COMMENT ON COLUMN to_mail_info.first_name IS '担当者名';
+COMMENT ON COLUMN to_mail_info.email IS 'メール';
+COMMENT ON COLUMN to_mail_info.type_flag IS '種別フラグ: 1:見積TO, 2:請求TO, 3:見積CC, 4:請求CC';
+COMMENT ON COLUMN to_mail_info.creation_date IS '作成日';
+COMMENT ON COLUMN to_mail_info.creator IS '作成者';
+COMMENT ON COLUMN to_mail_info.last_update_date IS '最終更新日';
+COMMENT ON COLUMN to_mail_info.last_updater IS '最終更新者';
