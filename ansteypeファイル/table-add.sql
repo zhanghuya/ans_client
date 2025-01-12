@@ -601,6 +601,7 @@ CREATE TABLE temporary_save_info (
     google_excel_name VARCHAR(255), -- googleEXCELファイル名
     google_excel_sheet_name VARCHAR(255), -- googleEXCELファイルシート名
     temporary_save_type VARCHAR(255), -- 一時保存タイプ
+    estimation_request_type INT,
     exe_date DATE, -- 実行日
     exe_name VARCHAR(255), -- 名称
     creation_date DATE, -- 作成日
@@ -616,6 +617,7 @@ COMMENT ON COLUMN temporary_save_info.matter_master_exe_id IS '案件情報取�
 COMMENT ON COLUMN temporary_save_info.google_excel_name IS 'googleEXCELファイル名';
 COMMENT ON COLUMN temporary_save_info.google_excel_sheet_name IS 'googleEXCELファイルシート名';
 COMMENT ON COLUMN temporary_save_info.temporary_save_type IS '一時保存タイプ';
+COMMENT ON COLUMN temporary_save_info.estimation_request_type IS '見積請求区分';
 COMMENT ON COLUMN temporary_save_info.exe_date IS '実行日';
 COMMENT ON COLUMN temporary_save_info.exe_name IS '名称';
 COMMENT ON COLUMN temporary_save_info.creation_date IS '作成日';
@@ -912,3 +914,129 @@ COMMENT ON COLUMN to_mail_info.creation_date IS '作成日';
 COMMENT ON COLUMN to_mail_info.creator IS '作成者';
 COMMENT ON COLUMN to_mail_info.last_update_date IS '最終更新日';
 COMMENT ON COLUMN to_mail_info.last_updater IS '最終更新者';
+
+-- 実行済み見積情報 請求情報
+-- テーブルの削除
+DROP TABLE IF EXISTS billing_info CASCADE;
+
+-- シークエンスの削除
+DROP SEQUENCE IF EXISTS billing_info_id_seq;
+CREATE SEQUENCE billing_info_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+-- Create the table
+CREATE TABLE billing_info (
+    id SERIAL PRIMARY KEY,
+    no VARCHAR(255),
+    matter_master_exe_id BIGINT DEFAULT nextval('billing_info_id_seq'),
+    rejection VARCHAR(255),
+    staff_operation_details VARCHAR(255),
+    agent_by_name VARCHAR(255),
+    var_date VARCHAR(255),
+    weekday_weekend VARCHAR(1),
+    business_trip VARCHAR(1),
+    event_location VARCHAR(255),
+    location_reservation VARCHAR(1),
+    sb_store VARCHAR(255),
+    agent_id BIGINT,
+    agent VARCHAR(255),
+    order_type VARCHAR(255),
+    by_name VARCHAR(255),
+    sales_memo VARCHAR(255),
+    assign_memo VARCHAR(255),
+    unit_price VARCHAR(255),
+    days INT,
+    sales VARCHAR(255),
+    creation_possible VARCHAR(1),
+    estimate_sent VARCHAR(1),
+    bill_sent VARCHAR(1),
+    judgment VARCHAR(1),
+    existence VARCHAR(1),
+    agent_company_name VARCHAR(255),
+    agent_person_in_charge VARCHAR(255),
+    implementation_schedule DATE,
+    integration_flag VARCHAR(1),
+    monthly_payment_flag VARCHAR(1),
+    execution_flag VARCHAR(1),
+    item_name VARCHAR(255),
+    count INT,
+    master_id INT,
+    sent_flag VARCHAR(1),
+    page_division_1 VARCHAR(1),
+    page_division_2 VARCHAR(1),
+    tax_exempt VARCHAR(1),
+    email_creation_id INT,
+    google_excel_name VARCHAR(255),
+    google_excel_sheet_name VARCHAR(255),
+    conditions_year VARCHAR(255),
+    conditions_month VARCHAR(255),
+    conditions_week VARCHAR(255),
+    conditions_agency VARCHAR(255),
+    subject_name VARCHAR(255),
+    amount NUMERIC(10, 2),
+    delivery_info_id INT,
+    creation_date DATE,
+    creator VARCHAR(255),
+    temporary_save_flg VARCHAR(1),
+    last_update_date DATE,
+    last_updater VARCHAR(255)
+);
+
+COMMENT ON COLUMN billing_info.id IS 'ID';
+COMMENT ON COLUMN billing_info.no IS '項番';
+COMMENT ON COLUMN billing_info.matter_master_exe_id IS '案件情報取得処理ID';
+COMMENT ON COLUMN billing_info.rejection IS 'お断り';
+COMMENT ON COLUMN billing_info.staff_operation_details IS 'スタッフ向け稼働詳細';
+COMMENT ON COLUMN billing_info.agent_by_name IS '代理店向けバイネーム';
+COMMENT ON COLUMN billing_info.var_date IS '日付';
+COMMENT ON COLUMN billing_info.weekday_weekend IS '平日/週末';
+COMMENT ON COLUMN billing_info.business_trip IS '出張';
+COMMENT ON COLUMN billing_info.event_location IS 'イベント実施場所';
+COMMENT ON COLUMN billing_info.location_reservation IS '場所取り';
+COMMENT ON COLUMN billing_info.sb_store IS 'SB開催店舗';
+COMMENT ON COLUMN billing_info.agent_id IS '代理店ID';
+COMMENT ON COLUMN billing_info.agent IS '代理店';
+COMMENT ON COLUMN billing_info.order_type IS 'オーダー';
+COMMENT ON COLUMN billing_info.by_name IS 'バイネーム';
+COMMENT ON COLUMN billing_info.sales_memo IS '営業担当メモ';
+COMMENT ON COLUMN billing_info.assign_memo IS 'アサイン担当メモ';
+COMMENT ON COLUMN billing_info.unit_price IS '単価';
+COMMENT ON COLUMN billing_info.days IS '日数';
+COMMENT ON COLUMN billing_info.sales IS '売り上げ';
+COMMENT ON COLUMN billing_info.creation_possible IS '作成可';
+COMMENT ON COLUMN billing_info.estimate_sent IS '見積送付済';
+COMMENT ON COLUMN billing_info.bill_sent IS '請求送付済';
+COMMENT ON COLUMN billing_info.judgment IS '判定';
+COMMENT ON COLUMN billing_info.existence IS '有無';
+COMMENT ON COLUMN billing_info.agent_company_name IS '代理店会社名';
+COMMENT ON COLUMN billing_info.agent_person_in_charge IS '代理店担当者';
+COMMENT ON COLUMN billing_info.implementation_schedule IS '実施日程';
+COMMENT ON COLUMN billing_info.integration_flag IS '統合フラグ';
+COMMENT ON COLUMN billing_info.monthly_payment_flag IS '月支払いフラグ';
+COMMENT ON COLUMN billing_info.execution_flag IS '実行済みフラグ';
+COMMENT ON COLUMN billing_info.item_name IS '品目名';
+COMMENT ON COLUMN billing_info.count IS '件数';
+COMMENT ON COLUMN billing_info.master_id IS '案件マスタID';
+COMMENT ON COLUMN billing_info.sent_flag IS '送信済みフラグ';
+COMMENT ON COLUMN billing_info.page_division_1 IS 'ページ分け1';
+COMMENT ON COLUMN billing_info.page_division_2 IS 'ページ分け2';
+COMMENT ON COLUMN billing_info.tax_exempt IS '非課税';
+COMMENT ON COLUMN billing_info.email_creation_id IS 'メール作成ID';
+COMMENT ON COLUMN billing_info.google_excel_name IS 'googleEXCELファイル名';
+COMMENT ON COLUMN billing_info.google_excel_sheet_name IS 'googleEXCELファイルシート名';
+COMMENT ON COLUMN billing_info.conditions_year IS '取得条件年';
+COMMENT ON COLUMN billing_info.conditions_month IS '取得条件月';
+COMMENT ON COLUMN billing_info.conditions_week IS '取得条件週';
+COMMENT ON COLUMN billing_info.conditions_agency IS '取得条件代理店';
+COMMENT ON COLUMN billing_info.subject_name IS '件名';
+COMMENT ON COLUMN billing_info.amount IS '金額';
+COMMENT ON COLUMN billing_info.delivery_info_id IS '送付情報ID';
+COMMENT ON COLUMN billing_info.creation_date IS '作成日';
+COMMENT ON COLUMN billing_info.creator IS '作成者';
+COMMENT ON COLUMN billing_info.temporary_save_flg IS '一時保存フラグ';
+COMMENT ON COLUMN billing_info.last_update_date IS '最終更新日';
+COMMENT ON COLUMN billing_info.last_updater IS '最終更新者';
