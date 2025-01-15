@@ -205,6 +205,9 @@ CREATE TABLE MATTER_MASTER_INFO (
     LAST_UPDATER VARCHAR(255),
     GOOGLE_EXCEL_NAME VARCHAR(255),
 	GOOGLE_EXCEL_SHEET_NAME VARCHAR(255),
+    people_number  INT,
+    transportation_fee NUMERIC(10, 2),
+    event_venue_fee NUMERIC(10, 2),
     -- 取得条件年
     conditions_year	 VARCHAR(255),
     --  取得条件月
@@ -259,6 +262,9 @@ COMMENT ON COLUMN MATTER_MASTER_INFO.conditions_year IS '取得条件年';
 COMMENT ON COLUMN MATTER_MASTER_INFO.conditions_month IS '取得条件月';
 COMMENT ON COLUMN MATTER_MASTER_INFO.conditions_week IS '取得条件週';
 COMMENT ON COLUMN MATTER_MASTER_INFO.conditions_agency IS '取得条件代理店';
+COMMENT ON COLUMN MATTER_MASTER_INFO.people_number IS '人数';
+COMMENT ON COLUMN MATTER_MASTER_INFO.transportation_fee IS '交通費';
+COMMENT ON COLUMN MATTER_MASTER_INFO.event_venue_fee IS '催事場代';
 ----------------------------------------------------------
 -- 見積情報
 -- テーブルの削除
@@ -319,6 +325,9 @@ CREATE TABLE ESTIMATION_INFO (
     LAST_UPDATER VARCHAR(255),
     GOOGLE_EXCEL_NAME VARCHAR(255),
 	GOOGLE_EXCEL_SHEET_NAME VARCHAR(255),
+    people_number  INT,
+    transportation_fee NUMERIC(10, 2),
+    event_venue_fee NUMERIC(10, 2),
     -- 取得条件年
     conditions_year	 VARCHAR(255),
     --  取得条件月
@@ -381,6 +390,9 @@ COMMENT ON COLUMN ESTIMATION_INFO.conditions_year IS '取得条件年';
 COMMENT ON COLUMN ESTIMATION_INFO.conditions_month IS '取得条件月';
 COMMENT ON COLUMN ESTIMATION_INFO.conditions_week IS '取得条件週';
 COMMENT ON COLUMN ESTIMATION_INFO.conditions_agency IS '取得条件代理店';
+COMMENT ON COLUMN ESTIMATION_INFO.people_number IS '人数';
+COMMENT ON COLUMN ESTIMATION_INFO.transportation_fee IS '交通費';
+COMMENT ON COLUMN ESTIMATION_INFO.event_venue_fee IS '催事場代';
 -- 見積請求作成情報
 -- テーブルの削除
 DROP TABLE IF EXISTS QUOTATION_CLAIM_CREATION_INFO CASCADE;
@@ -915,7 +927,7 @@ COMMENT ON COLUMN to_mail_info.creator IS '作成者';
 COMMENT ON COLUMN to_mail_info.last_update_date IS '最終更新日';
 COMMENT ON COLUMN to_mail_info.last_updater IS '最終更新者';
 
--- 実行済み見積情報 請求情報
+-- 見積作成請求情報
 -- テーブルの削除
 DROP TABLE IF EXISTS billing_info CASCADE;
 
@@ -979,6 +991,9 @@ CREATE TABLE billing_info (
     subject_name VARCHAR(255),
     amount NUMERIC(10, 2),
     delivery_info_id INT,
+    people_number  INT,
+    transportation_fee NUMERIC(10, 2),
+    event_venue_fee NUMERIC(10, 2),
     creation_date DATE,
     creator VARCHAR(255),
     temporary_save_flg VARCHAR(1),
@@ -1035,6 +1050,9 @@ COMMENT ON COLUMN billing_info.conditions_agency IS '取得条件代理店';
 COMMENT ON COLUMN billing_info.subject_name IS '件名';
 COMMENT ON COLUMN billing_info.amount IS '金額';
 COMMENT ON COLUMN billing_info.delivery_info_id IS '送付情報ID';
+COMMENT ON COLUMN billing_info.people_number IS '人数';
+COMMENT ON COLUMN billing_info.transportation_fee IS '交通費';
+COMMENT ON COLUMN billing_info.event_venue_fee IS '催事場代';
 COMMENT ON COLUMN billing_info.creation_date IS '作成日';
 COMMENT ON COLUMN billing_info.creator IS '作成者';
 COMMENT ON COLUMN billing_info.temporary_save_flg IS '一時保存フラグ';
@@ -1106,6 +1124,9 @@ CREATE TABLE billing_temporary_save_info (
     subject_name VARCHAR(255),
     amount NUMERIC(10, 2),
     delivery_info_id INT,
+    people_number  INT,
+    transportation_fee NUMERIC(10, 2),
+    event_venue_fee NUMERIC(10, 2),
     creation_date DATE,
     creator VARCHAR(255),
     temporary_save_flg VARCHAR(1),
@@ -1162,6 +1183,9 @@ COMMENT ON COLUMN billing_temporary_save_info.conditions_agency IS '取得条件
 COMMENT ON COLUMN billing_temporary_save_info.subject_name IS '件名';
 COMMENT ON COLUMN billing_temporary_save_info.amount IS '金額';
 COMMENT ON COLUMN billing_temporary_save_info.delivery_info_id IS '送付情報ID';
+COMMENT ON COLUMN billing_temporary_save_info.people_number IS '人数';
+COMMENT ON COLUMN billing_temporary_save_info.transportation_fee IS '交通費';
+COMMENT ON COLUMN billing_temporary_save_info.event_venue_fee IS '催事場代';
 COMMENT ON COLUMN billing_temporary_save_info.creation_date IS '作成日';
 COMMENT ON COLUMN billing_temporary_save_info.creator IS '作成者';
 COMMENT ON COLUMN billing_temporary_save_info.temporary_save_flg IS '一時保存フラグ';
