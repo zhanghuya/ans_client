@@ -215,7 +215,10 @@ CREATE TABLE MATTER_MASTER_INFO (
     -- 取得条件週
     conditions_week VARCHAR(255),
     -- 取得条件代理店
-    conditions_agency VARCHAR(255)
+    conditions_agency VARCHAR(255),
+    PAGE_DIVISION_1 VARCHAR(1),
+    PAGE_DIVISION_2 VARCHAR(1),
+    TAX_EXEMPT VARCHAR(1)
 
 );
 
@@ -265,6 +268,9 @@ COMMENT ON COLUMN MATTER_MASTER_INFO.conditions_agency IS '取得条件代理店
 COMMENT ON COLUMN MATTER_MASTER_INFO.people_number IS '人数';
 COMMENT ON COLUMN MATTER_MASTER_INFO.transportation_fee IS '交通費';
 COMMENT ON COLUMN MATTER_MASTER_INFO.event_venue_fee IS '催事場代';
+COMMENT ON COLUMN MATTER_MASTER_INFO.PAGE_DIVISION_1 IS 'ページ分け1';
+COMMENT ON COLUMN MATTER_MASTER_INFO.PAGE_DIVISION_2 IS 'ページ分け2';
+COMMENT ON COLUMN MATTER_MASTER_INFO.TAX_EXEMPT IS '非課税';
 ----------------------------------------------------------
 -- 見積情報
 -- テーブルの削除
