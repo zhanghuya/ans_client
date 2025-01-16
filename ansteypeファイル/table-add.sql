@@ -622,6 +622,14 @@ CREATE TABLE temporary_save_info (
     estimation_request_type INT,
     exe_date DATE, -- 実行日
     exe_name VARCHAR(255), -- 名称
+    -- 取得条件年
+    conditions_year	 VARCHAR(255),
+    --  取得条件月
+    conditions_month VARCHAR(255),
+    -- 取得条件週
+    conditions_week VARCHAR(255),
+    -- 取得条件代理店
+    conditions_agency VARCHAR(255),
     creation_date DATE, -- 作成日
     creator VARCHAR(255), -- 作成者
     del_flg VARCHAR(1), -- 削除フラグ
@@ -643,6 +651,10 @@ COMMENT ON COLUMN temporary_save_info.creator IS '作成者';
 COMMENT ON COLUMN temporary_save_info.del_flg IS '削除フラグ';
 COMMENT ON COLUMN temporary_save_info.last_update_date IS '最終更新日';
 COMMENT ON COLUMN temporary_save_info.last_updater IS '最終更新者';
+COMMENT ON COLUMN temporary_save_info.conditions_year IS '取得条件年';
+COMMENT ON COLUMN temporary_save_info.conditions_month IS '取得条件月';
+COMMENT ON COLUMN temporary_save_info.conditions_week IS '取得条件週';
+COMMENT ON COLUMN temporary_save_info.conditions_agency IS '取得条件代理店';
 -- 设置 SEQUENCE 和主键关联
 ALTER SEQUENCE temporary_save_info_seq OWNED BY temporary_save_info.id;
 
