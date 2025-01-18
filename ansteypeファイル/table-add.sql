@@ -1152,6 +1152,7 @@ CREATE TABLE billing_temporary_save_info (
     creation_date DATE,
     creator VARCHAR(255),
     temporary_save_flg VARCHAR(1),
+    subtract VARCHAR(255),
     temporary_id INT,
     last_update_date DATE,
     last_updater VARCHAR(255)
@@ -1214,6 +1215,7 @@ COMMENT ON COLUMN billing_temporary_save_info.type_flg IS 'データ種類';
 COMMENT ON COLUMN billing_temporary_save_info.creation_date IS '作成日';
 COMMENT ON COLUMN billing_temporary_save_info.creator IS '作成者';
 COMMENT ON COLUMN billing_temporary_save_info.temporary_save_flg IS '一時保存フラグ';
+COMMENT ON COLUMN billing_temporary_save_info.subtract  IS '減算';
 COMMENT ON COLUMN billing_temporary_save_info.last_update_date IS '最終更新日';
 COMMENT ON COLUMN billing_temporary_save_info.temporary_id IS '一時保存ID';
 COMMENT ON COLUMN billing_temporary_save_info.last_updater IS '最終更新者';
@@ -1324,7 +1326,8 @@ CREATE TABLE delivery_temporary_save_info (
     -- 取得条件代理店
     conditions_agency VARCHAR(255),
     -- 送付状態
-    delivery_status VARCHAR(1)
+    delivery_status VARCHAR(1),
+    subtract VARCHAR(255)
 
 );
 
@@ -1364,3 +1367,4 @@ COMMENT ON COLUMN delivery_temporary_save_info.CREATOR IS '作成者';
 COMMENT ON COLUMN delivery_temporary_save_info.DEL_FLG IS '削除フラグ';
 COMMENT ON COLUMN delivery_temporary_save_info.LAST_UPDATE_DATE IS '最終更新日';
 COMMENT ON COLUMN delivery_temporary_save_info.LAST_UPDATER IS '最終更新者';
+COMMENT ON COLUMN delivery_temporary_save_info.subtract  IS '減算';
