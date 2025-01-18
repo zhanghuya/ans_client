@@ -1012,6 +1012,7 @@ CREATE TABLE billing_info (
     people_number  INT,
     transportation_fee NUMERIC(10, 2),
     event_venue_fee NUMERIC(10, 2),
+    type_flg VARCHAR(1),
     creation_date DATE,
     creator VARCHAR(255),
     temporary_save_flg VARCHAR(1),
@@ -1071,6 +1072,7 @@ COMMENT ON COLUMN billing_info.delivery_info_id IS '送付情報ID';
 COMMENT ON COLUMN billing_info.people_number IS '人数';
 COMMENT ON COLUMN billing_info.transportation_fee IS '交通費';
 COMMENT ON COLUMN billing_info.event_venue_fee IS '催事場代';
+COMMENT ON COLUMN billing_info.type_flg IS 'データ種類';
 COMMENT ON COLUMN billing_info.creation_date IS '作成日';
 COMMENT ON COLUMN billing_info.creator IS '作成者';
 COMMENT ON COLUMN billing_info.temporary_save_flg IS '一時保存フラグ';
@@ -1142,12 +1144,15 @@ CREATE TABLE billing_temporary_save_info (
     subject_name VARCHAR(255),
     amount NUMERIC(10, 2),
     delivery_info_id INT,
+    delivery_temporary_id INT,
     people_number  INT,
     transportation_fee NUMERIC(10, 2),
     event_venue_fee NUMERIC(10, 2),
+    type_flg VARCHAR(1),
     creation_date DATE,
     creator VARCHAR(255),
     temporary_save_flg VARCHAR(1),
+    temporary_id INT,
     last_update_date DATE,
     last_updater VARCHAR(255)
 );
@@ -1201,11 +1206,161 @@ COMMENT ON COLUMN billing_temporary_save_info.conditions_agency IS '取得条件
 COMMENT ON COLUMN billing_temporary_save_info.subject_name IS '件名';
 COMMENT ON COLUMN billing_temporary_save_info.amount IS '金額';
 COMMENT ON COLUMN billing_temporary_save_info.delivery_info_id IS '送付情報ID';
+COMMENT ON COLUMN billing_temporary_save_info.delivery_temporary_id IS '送付一時保存情報ID';
 COMMENT ON COLUMN billing_temporary_save_info.people_number IS '人数';
 COMMENT ON COLUMN billing_temporary_save_info.transportation_fee IS '交通費';
 COMMENT ON COLUMN billing_temporary_save_info.event_venue_fee IS '催事場代';
+COMMENT ON COLUMN billing_temporary_save_info.type_flg IS 'データ種類';
 COMMENT ON COLUMN billing_temporary_save_info.creation_date IS '作成日';
 COMMENT ON COLUMN billing_temporary_save_info.creator IS '作成者';
 COMMENT ON COLUMN billing_temporary_save_info.temporary_save_flg IS '一時保存フラグ';
 COMMENT ON COLUMN billing_temporary_save_info.last_update_date IS '最終更新日';
+COMMENT ON COLUMN billing_temporary_save_info.temporary_id IS '一時保存ID';
 COMMENT ON COLUMN billing_temporary_save_info.last_updater IS '最終更新者';
+
+
+-- 创建送付情報表
+-- テーブルの削除
+DROP TABLE IF EXISTS delivery_temporary_save_info CASCADE;
+
+-- シークエンスの削除
+DROP SEQUENCE IF EXISTS delivery_temporary_save_info_id_seq;
+-- 创建自定义的 sequence
+CREATE SEQUENCE delivery_temporary_save_info_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+-- 创建送付情報表
+CREATE TABLE delivery_temporary_save_info (
+    -- ID: 主键，自动递增
+    ID INT PRIMARY KEY DEFAULT nextval('delivery_temporary_save_info_id_seq'),
+
+    -- 送付対象标志
+    delivery_flg VARCHAR(1),
+
+    -- 送付先地址
+    shipping_address VARCHAR(255),
+
+    -- 会社id
+    company_id INT,
+
+    -- 会社名称
+    company_name VARCHAR(255),
+
+    -- 店铺地址设置
+    store_address_settings VARCHAR(255),
+    STORE_ID  VARCHAR(255),
+    STORE_name  VARCHAR(255),
+    -- 代理店id
+    agent_id INT,
+
+    -- 代理店名称
+    agent_name VARCHAR(255),
+
+    -- 件名
+    subject_name VARCHAR(255),
+
+    -- 金额
+    amount NUMERIC(10, 2),
+
+    -- 第1週の合計金額
+    WEEK1_AMOUNT NUMERIC(10, 2),
+
+    -- 第2週の合計金額
+    WEEK2_AMOUNT NUMERIC(10, 2),
+
+    -- 第3週の合計金額 
+    WEEK3_AMOUNT NUMERIC(10, 2), 
+
+    -- 第4週の合計金額
+    WEEK4_AMOUNT NUMERIC(10, 2),
+
+    -- 第5週の合計金額 
+    WEEK5_AMOUNT NUMERIC(10, 2), 
+
+    -- 見積請求区分（例: 見積または請求）
+    ESTIMATION_REQUEST_TYPE INT,
+    -- excel作成ファイル名
+    EXCEL_FILE_NAME VARCHAR(255),
+    -- PDF作成パス
+    FILE_PATH VARCHAR(255),
+    -- PDF作成ファイル名
+    PDF_FILE_NAME VARCHAR(255),
+    -- 日期
+    var_date VARCHAR(255),
+
+    -- 案件信息获取处理ID
+    MATTER_MASTER_EXE_ID BIGINT,
+
+    -- Google Excel 文件名
+    GOOGLE_EXCEL_NAME VARCHAR(255),
+
+    -- Google Excel 文件的表单名称
+    GOOGLE_EXCEL_SHEET_NAME VARCHAR(255),
+
+    -- 创建日期
+    CREATION_DATE DATE,
+
+    -- 创建者
+    CREATOR VARCHAR(255),
+
+    -- 删除标志
+    DEL_FLG VARCHAR(1),
+
+    -- 最后更新时间
+    LAST_UPDATE_DATE DATE,
+
+    -- 最后更新者
+    LAST_UPDATER VARCHAR(255),
+    -- 取得条件年
+    conditions_year	 VARCHAR(255),
+    --  取得条件月
+    conditions_month VARCHAR(255),
+    -- 取得条件週
+    conditions_week VARCHAR(255),
+    -- 取得条件代理店
+    conditions_agency VARCHAR(255),
+    -- 送付状態
+    delivery_status VARCHAR(1)
+
+);
+
+-- 为表添加注释
+COMMENT ON TABLE delivery_temporary_save_info IS '送付情報テーブル';
+
+-- 为列添加注释
+COMMENT ON COLUMN delivery_temporary_save_info.ID IS 'ID';
+COMMENT ON COLUMN delivery_temporary_save_info.delivery_flg IS '送付対象';
+COMMENT ON COLUMN delivery_temporary_save_info.shipping_address IS '送付先';
+COMMENT ON COLUMN delivery_temporary_save_info.company_id IS '会社id';
+COMMENT ON COLUMN delivery_temporary_save_info.company_name IS '会社名';
+COMMENT ON COLUMN delivery_temporary_save_info.store_address_settings IS '店舗アドレス設定';
+COMMENT ON COLUMN delivery_temporary_save_info.agent_id IS '代理店id';
+COMMENT ON COLUMN delivery_temporary_save_info.agent_name IS '代理店名';
+COMMENT ON COLUMN delivery_temporary_save_info.STORE_ID IS '店舗ID';
+COMMENT ON COLUMN delivery_temporary_save_info.STORE_name IS '店舗名';
+COMMENT ON COLUMN delivery_temporary_save_info.subject_name IS '件名';
+COMMENT ON COLUMN delivery_temporary_save_info.amount IS '金額';
+COMMENT ON COLUMN delivery_temporary_save_info.WEEK1_AMOUNT IS '第1週合計金額';
+COMMENT ON COLUMN delivery_temporary_save_info.WEEK2_AMOUNT IS '第2週合計金額';
+COMMENT ON COLUMN delivery_temporary_save_info.WEEK3_AMOUNT IS '第3週合計金額';
+COMMENT ON COLUMN delivery_temporary_save_info.WEEK4_AMOUNT IS '第4週合計金額';
+COMMENT ON COLUMN delivery_temporary_save_info.WEEK5_AMOUNT IS '第5週合計金額';
+COMMENT ON COLUMN delivery_temporary_save_info.ESTIMATION_REQUEST_TYPE IS '第5週合計金額';
+COMMENT ON COLUMN delivery_temporary_save_info.var_date IS '日付';
+COMMENT ON COLUMN delivery_temporary_save_info.MATTER_MASTER_EXE_ID IS '案件情報取得処理ID';
+COMMENT ON COLUMN delivery_temporary_save_info.GOOGLE_EXCEL_NAME IS 'googleEXCELファイル名';
+COMMENT ON COLUMN delivery_temporary_save_info.GOOGLE_EXCEL_SHEET_NAME IS 'googleEXCELファイルシート名';
+COMMENT ON COLUMN delivery_temporary_save_info.conditions_year IS '取得条件年';
+COMMENT ON COLUMN delivery_temporary_save_info.conditions_month IS '取得条件月';
+COMMENT ON COLUMN delivery_temporary_save_info.conditions_week IS '取得条件週';
+COMMENT ON COLUMN delivery_temporary_save_info.conditions_agency IS '取得条件代理店';
+COMMENT ON COLUMN delivery_temporary_save_info.delivery_status  IS '送付状態';
+COMMENT ON COLUMN delivery_temporary_save_info.CREATION_DATE IS '作成日';
+COMMENT ON COLUMN delivery_temporary_save_info.CREATOR IS '作成者';
+COMMENT ON COLUMN delivery_temporary_save_info.DEL_FLG IS '削除フラグ';
+COMMENT ON COLUMN delivery_temporary_save_info.LAST_UPDATE_DATE IS '最終更新日';
+COMMENT ON COLUMN delivery_temporary_save_info.LAST_UPDATER IS '最終更新者';
