@@ -432,39 +432,6 @@ COMMENT ON COLUMN QUOTATION_CLAIM_CREATION_INFO.CREATOR IS '作成者';
 COMMENT ON COLUMN QUOTATION_CLAIM_CREATION_INFO.LAST_UPDATE_DATE IS '最終更新日';
 COMMENT ON COLUMN QUOTATION_CLAIM_CREATION_INFO.LAST_UPDATER IS '最終更新者';
 
-
--- PDF作成情報
--- テーブルの削除
-DROP TABLE IF EXISTS PDF_CREATION_INFO CASCADE;
-
--- シークエンスの削除
-DROP SEQUENCE IF EXISTS PDF_CREATION_INFO_SEQ;
-
--- シークエンスの作成
-CREATE SEQUENCE PDF_CREATION_INFO_SEQ START WITH 1 INCREMENT BY 1;
-
--- テーブルの作成
-CREATE TABLE PDF_CREATION_INFO (
-    ID INT PRIMARY KEY DEFAULT nextval('PDF_CREATION_INFO_SEQ'),
-    URL VARCHAR(255),
-    ESTIMATE_CLAIM_CREATION_ID INT,
-    CREATION_DATE DATE,
-    CREATOR VARCHAR(255),
-    LAST_UPDATE_DATE DATE,
-    LAST_UPDATER VARCHAR(255)
-);
-
--- 外鍵の追加例
-ALTER TABLE PDF_CREATION_INFO ADD CONSTRAINT FK_ESTIMATE_CLAIM_CREATION_ID FOREIGN KEY (ESTIMATE_CLAIM_CREATION_ID) REFERENCES QUOTATION_CLAIM_CREATION_INFO(ID);
-
--- テーブルのコメント追加
-COMMENT ON COLUMN PDF_CREATION_INFO.URL IS 'URL';
-COMMENT ON COLUMN PDF_CREATION_INFO.ESTIMATE_CLAIM_CREATION_ID IS '見積請求作成ID';
-COMMENT ON COLUMN PDF_CREATION_INFO.CREATION_DATE IS '作成日';
-COMMENT ON COLUMN PDF_CREATION_INFO.CREATOR IS '作成者';
-COMMENT ON COLUMN PDF_CREATION_INFO.LAST_UPDATE_DATE IS '最終更新日';
-COMMENT ON COLUMN PDF_CREATION_INFO.LAST_UPDATER IS '最終更新者';
-
 -- 見積請求設定情報
 -- テーブルの削除
 DROP TABLE IF EXISTS QUOTATION_CLAIM_SETTING_INFO CASCADE;
@@ -763,7 +730,9 @@ CREATE TABLE delivery_info (
     -- 取得条件代理店
     conditions_agency VARCHAR(255),
     -- 送付状態
-    delivery_status VARCHAR(1)
+    delivery_status VARCHAR(1),
+    pdf_id   INT
+
 
 );
 
@@ -803,6 +772,8 @@ COMMENT ON COLUMN delivery_info.CREATOR IS '作成者';
 COMMENT ON COLUMN delivery_info.DEL_FLG IS '削除フラグ';
 COMMENT ON COLUMN delivery_info.LAST_UPDATE_DATE IS '最終更新日';
 COMMENT ON COLUMN delivery_info.LAST_UPDATER IS '最終更新者';
+COMMENT ON COLUMN delivery_info.pdf_id   IS 'pdf_id';
+
 
 
 
@@ -880,7 +851,7 @@ CREATE SEQUENCE quotation_claim_creation_info_id_seq
     NO MAXVALUE
     CACHE 1;
 CREATE TABLE QUOTATION_CLAIM_CREATION_INFO (
-    ID  INT PRIMARY KEY DEFAULT nextval('delivery_info_id_seq'),
+    ID  INT PRIMARY KEY DEFAULT nextval('quotation_claim_creation_info_id_seq'),
     delivery_id INT, -- 送付情報ID
     SUBJECT_1 VARCHAR(255), -- 件名1
     BED VARCHAR(255), -- ベッダ
@@ -960,9 +931,9 @@ CREATE SEQUENCE billing_info_id_seq
 
 -- Create the table
 CREATE TABLE billing_info (
-    id SERIAL PRIMARY KEY,
+    id   INT PRIMARY KEY DEFAULT nextval('billing_info_id_seq'),
     no VARCHAR(255),
-    matter_master_exe_id BIGINT DEFAULT nextval('billing_info_id_seq'),
+    matter_master_exe_id BIGINT,
     rejection VARCHAR(255),
     staff_operation_details VARCHAR(255),
     agent_by_name VARCHAR(255),
@@ -1017,7 +988,9 @@ CREATE TABLE billing_info (
     creator VARCHAR(255),
     temporary_save_flg VARCHAR(1),
     last_update_date DATE,
-    last_updater VARCHAR(255)
+    last_updater VARCHAR(255),
+    pdf_id   INT
+
 );
 
 COMMENT ON COLUMN billing_info.id IS 'ID';
@@ -1078,6 +1051,7 @@ COMMENT ON COLUMN billing_info.creator IS '作成者';
 COMMENT ON COLUMN billing_info.temporary_save_flg IS '一時保存フラグ';
 COMMENT ON COLUMN billing_info.last_update_date IS '最終更新日';
 COMMENT ON COLUMN billing_info.last_updater IS '最終更新者';
+COMMENT ON COLUMN billing_info.pdf_id IS 'pdfID';
 
 
 -- 実行済み見積情報 請求情報
@@ -1095,9 +1069,9 @@ CREATE SEQUENCE billing_temporary_save_info_id_seq
 
 -- Create the table
 CREATE TABLE billing_temporary_save_info (
-    id SERIAL PRIMARY KEY,
+    id   INT PRIMARY KEY DEFAULT nextval('billing_temporary_save_info_id_seq'),
     no VARCHAR(255),
-    matter_master_exe_id BIGINT DEFAULT nextval('billing_temporary_save_info_id_seq'),
+    matter_master_exe_id BIGINT ,
     rejection VARCHAR(255),
     staff_operation_details VARCHAR(255),
     agent_by_name VARCHAR(255),
@@ -1155,7 +1129,9 @@ CREATE TABLE billing_temporary_save_info (
     subtract VARCHAR(255),
     temporary_id INT,
     last_update_date DATE,
-    last_updater VARCHAR(255)
+    last_updater VARCHAR(255),
+    pdf_id   INT
+
 );
 
 COMMENT ON COLUMN billing_temporary_save_info.id IS 'ID';
@@ -1219,7 +1195,7 @@ COMMENT ON COLUMN billing_temporary_save_info.subtract  IS '減算';
 COMMENT ON COLUMN billing_temporary_save_info.last_update_date IS '最終更新日';
 COMMENT ON COLUMN billing_temporary_save_info.temporary_id IS '一時保存ID';
 COMMENT ON COLUMN billing_temporary_save_info.last_updater IS '最終更新者';
-
+COMMENT ON COLUMN billing_temporary_save_info.pdf_id IS 'pdfID';
 
 -- 创建送付情報表
 -- テーブルの削除
@@ -1327,7 +1303,9 @@ CREATE TABLE delivery_temporary_save_info (
     conditions_agency VARCHAR(255),
     -- 送付状態
     delivery_status VARCHAR(1),
-    subtract VARCHAR(255)
+    subtract VARCHAR(255),
+    pdf_id   INT
+
 
 );
 
@@ -1368,3 +1346,192 @@ COMMENT ON COLUMN delivery_temporary_save_info.DEL_FLG IS '削除フラグ';
 COMMENT ON COLUMN delivery_temporary_save_info.LAST_UPDATE_DATE IS '最終更新日';
 COMMENT ON COLUMN delivery_temporary_save_info.LAST_UPDATER IS '最終更新者';
 COMMENT ON COLUMN delivery_temporary_save_info.subtract  IS '減算';
+COMMENT ON COLUMN delivery_temporary_save_info.pdf_id  IS 'pdf_id';
+
+
+
+-- PDF作成情報
+-- テーブルの削除
+DROP TABLE IF EXISTS PDF_CREATION_INFO CASCADE;
+
+-- シークエンスの削除
+DROP SEQUENCE IF EXISTS PDF_CREATION_INFO_SEQ;
+
+-- シークエンスの作成
+CREATE SEQUENCE PDF_CREATION_INFO_SEQ START WITH 1 INCREMENT BY 1;
+
+-- テーブルの作成
+CREATE TABLE PDF_CREATION_INFO (
+    ID INT PRIMARY KEY DEFAULT nextval('PDF_CREATION_INFO_SEQ'),
+    URL VARCHAR(255), -- URL
+    CREATION_DATE DATE, -- 作成日
+    CREATOR VARCHAR(255), -- 作成者
+    LAST_UPDATE_DATE DATE, -- 最終更新日
+    LAST_UPDATER VARCHAR(255), -- 最終更新者
+    DELIVERY_ID INT, -- 送付情報ID
+    EXCEL_FILE_NAME VARCHAR(255), -- ファイル名 (Excel)
+    FILE_PATH VARCHAR(255), -- ファイルパス
+    PDF_FILE_NAME VARCHAR(255), -- ファイル名 (PDF)
+    GOOGLE_FILE_PATH VARCHAR(255), -- Google ファイルパス
+    ESTIMATION_REQUEST_TYPE INT, -- 見積請求区分 (データタイプの区分 例: 1=見積, 2=請求)
+    PDF_AMOUNT NUMERIC(10, 2) -- PDF 金額
+);
+
+-- 添加字段注释
+COMMENT ON COLUMN PDF_CREATION_INFO.ID IS 'ID';
+COMMENT ON COLUMN PDF_CREATION_INFO.URL IS 'URL';
+COMMENT ON COLUMN PDF_CREATION_INFO.CREATION_DATE IS '作成日';
+COMMENT ON COLUMN PDF_CREATION_INFO.CREATOR IS '作成者';
+COMMENT ON COLUMN PDF_CREATION_INFO.LAST_UPDATE_DATE IS '最終更新日';
+COMMENT ON COLUMN PDF_CREATION_INFO.LAST_UPDATER IS '最終更新者';
+COMMENT ON COLUMN PDF_CREATION_INFO.DELIVERY_ID IS '送付情報ID';
+COMMENT ON COLUMN PDF_CREATION_INFO.EXCEL_FILE_NAME IS 'ファイル名 (Excel)';
+COMMENT ON COLUMN PDF_CREATION_INFO.FILE_PATH IS 'ファイルパス';
+COMMENT ON COLUMN PDF_CREATION_INFO.PDF_FILE_NAME IS 'ファイル名 (PDF)';
+COMMENT ON COLUMN PDF_CREATION_INFO.GOOGLE_FILE_PATH IS 'googleファイルパス';
+COMMENT ON COLUMN PDF_CREATION_INFO.ESTIMATION_REQUEST_TYPE IS '見積請求区分 (データタイプの区分 例: 1=見積, 2=請求)';
+COMMENT ON COLUMN PDF_CREATION_INFO.PDF_AMOUNT IS 'PDF 金額';
+
+
+-- 請求後請求情報
+-- テーブルの削除
+DROP TABLE IF EXISTS post_billing_save_info CASCADE;
+
+-- シークエンスの削除
+DROP SEQUENCE IF EXISTS post_billing_save_info_id_seq;
+CREATE SEQUENCE post_billing_save_info_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+-- Create the table
+CREATE TABLE post_billing_save_info (
+    id   INT PRIMARY KEY DEFAULT nextval('post_billing_save_info_id_seq'),
+    no VARCHAR(255),
+    matter_master_exe_id BIGINT ,
+    rejection VARCHAR(255),
+    staff_operation_details VARCHAR(255),
+    agent_by_name VARCHAR(255),
+    var_date VARCHAR(255),
+    weekday_weekend VARCHAR(255),
+    business_trip VARCHAR(1),
+    event_location VARCHAR(255),
+    location_reservation VARCHAR(1),
+    sb_store VARCHAR(255),
+    agent_id BIGINT,
+    agent VARCHAR(255),
+    order_type VARCHAR(255),
+    by_name VARCHAR(255),
+    sales_memo VARCHAR(255),
+    assign_memo VARCHAR(255),
+    unit_price VARCHAR(255),
+    days INT,
+    sales VARCHAR(255),
+    creation_possible VARCHAR(1),
+    estimate_sent VARCHAR(1),
+    bill_sent VARCHAR(1),
+    judgment VARCHAR(1),
+    existence VARCHAR(1),
+    agent_company_name VARCHAR(255),
+    agent_person_in_charge VARCHAR(255),
+    implementation_schedule DATE,
+    integration_flag VARCHAR(1),
+    monthly_payment_flag VARCHAR(1),
+    execution_flag VARCHAR(1),
+    item_name VARCHAR(255),
+    count INT,
+    master_id INT,
+    sent_flag VARCHAR(1),
+    page_division_1 VARCHAR(1),
+    page_division_2 VARCHAR(1),
+    tax_exempt VARCHAR(1),
+    email_creation_id INT,
+    google_excel_name VARCHAR(255),
+    google_excel_sheet_name VARCHAR(255),
+    conditions_year VARCHAR(255),
+    conditions_month VARCHAR(255),
+    conditions_week VARCHAR(255),
+    conditions_agency VARCHAR(255),
+    subject_name VARCHAR(255),
+    amount NUMERIC(10, 2),
+    delivery_info_id INT,
+    delivery_temporary_id INT,
+    people_number  INT,
+    transportation_fee NUMERIC(10, 2),
+    event_venue_fee NUMERIC(10, 2),
+    type_flg VARCHAR(1),
+    creation_date DATE,
+    creator VARCHAR(255),
+    temporary_save_flg VARCHAR(1),
+    subtract VARCHAR(255),
+    temporary_id INT,
+    last_update_date DATE,
+    last_updater VARCHAR(255),
+    pdf_id   INT
+
+);
+
+COMMENT ON COLUMN post_billing_save_info.id IS 'ID';
+COMMENT ON COLUMN post_billing_save_info.no IS '項番';
+COMMENT ON COLUMN post_billing_save_info.matter_master_exe_id IS '案件情報取得処理ID';
+COMMENT ON COLUMN post_billing_save_info.rejection IS 'お断り';
+COMMENT ON COLUMN post_billing_save_info.staff_operation_details IS 'スタッフ向け稼働詳細';
+COMMENT ON COLUMN post_billing_save_info.agent_by_name IS '代理店向けバイネーム';
+COMMENT ON COLUMN post_billing_save_info.var_date IS '日付';
+COMMENT ON COLUMN post_billing_save_info.weekday_weekend IS '平日/週末';
+COMMENT ON COLUMN post_billing_save_info.business_trip IS '出張';
+COMMENT ON COLUMN post_billing_save_info.event_location IS 'イベント実施場所';
+COMMENT ON COLUMN post_billing_save_info.location_reservation IS '場所取り';
+COMMENT ON COLUMN post_billing_save_info.sb_store IS 'SB開催店舗';
+COMMENT ON COLUMN post_billing_save_info.agent_id IS '代理店ID';
+COMMENT ON COLUMN post_billing_save_info.agent IS '代理店';
+COMMENT ON COLUMN post_billing_save_info.order_type IS 'オーダー';
+COMMENT ON COLUMN post_billing_save_info.by_name IS 'バイネーム';
+COMMENT ON COLUMN post_billing_save_info.sales_memo IS '営業担当メモ';
+COMMENT ON COLUMN post_billing_save_info.assign_memo IS 'アサイン担当メモ';
+COMMENT ON COLUMN post_billing_save_info.unit_price IS '単価';
+COMMENT ON COLUMN post_billing_save_info.days IS '日数';
+COMMENT ON COLUMN post_billing_save_info.sales IS '売り上げ';
+COMMENT ON COLUMN post_billing_save_info.creation_possible IS '作成可';
+COMMENT ON COLUMN post_billing_save_info.estimate_sent IS '見積送付済';
+COMMENT ON COLUMN post_billing_save_info.bill_sent IS '請求送付済';
+COMMENT ON COLUMN post_billing_save_info.judgment IS '判定';
+COMMENT ON COLUMN post_billing_save_info.existence IS '有無';
+COMMENT ON COLUMN post_billing_save_info.agent_company_name IS '代理店会社名';
+COMMENT ON COLUMN post_billing_save_info.agent_person_in_charge IS '代理店担当者';
+COMMENT ON COLUMN post_billing_save_info.implementation_schedule IS '実施日程';
+COMMENT ON COLUMN post_billing_save_info.integration_flag IS '統合フラグ';
+COMMENT ON COLUMN post_billing_save_info.monthly_payment_flag IS '月支払いフラグ';
+COMMENT ON COLUMN post_billing_save_info.execution_flag IS '実行済みフラグ';
+COMMENT ON COLUMN post_billing_save_info.item_name IS '品目名';
+COMMENT ON COLUMN post_billing_save_info.count IS '件数';
+COMMENT ON COLUMN post_billing_save_info.master_id IS '案件マスタID';
+COMMENT ON COLUMN post_billing_save_info.sent_flag IS '送信済みフラグ';
+COMMENT ON COLUMN post_billing_save_info.page_division_1 IS 'ページ分け1';
+COMMENT ON COLUMN post_billing_save_info.page_division_2 IS 'ページ分け2';
+COMMENT ON COLUMN post_billing_save_info.tax_exempt IS '非課税';
+COMMENT ON COLUMN post_billing_save_info.email_creation_id IS 'メール作成ID';
+COMMENT ON COLUMN post_billing_save_info.google_excel_name IS 'googleEXCELファイル名';
+COMMENT ON COLUMN post_billing_save_info.google_excel_sheet_name IS 'googleEXCELファイルシート名';
+COMMENT ON COLUMN post_billing_save_info.conditions_year IS '取得条件年';
+COMMENT ON COLUMN post_billing_save_info.conditions_month IS '取得条件月';
+COMMENT ON COLUMN post_billing_save_info.conditions_week IS '取得条件週';
+COMMENT ON COLUMN post_billing_save_info.conditions_agency IS '取得条件代理店';
+COMMENT ON COLUMN post_billing_save_info.subject_name IS '件名';
+COMMENT ON COLUMN post_billing_save_info.amount IS '金額';
+COMMENT ON COLUMN post_billing_save_info.delivery_info_id IS '送付情報ID';
+COMMENT ON COLUMN post_billing_save_info.delivery_temporary_id IS '送付一時保存情報ID';
+COMMENT ON COLUMN post_billing_save_info.people_number IS '人数';
+COMMENT ON COLUMN post_billing_save_info.transportation_fee IS '交通費';
+COMMENT ON COLUMN post_billing_save_info.event_venue_fee IS '催事場代';
+COMMENT ON COLUMN post_billing_save_info.type_flg IS 'データ種類';
+COMMENT ON COLUMN post_billing_save_info.creation_date IS '作成日';
+COMMENT ON COLUMN post_billing_save_info.creator IS '作成者';
+COMMENT ON COLUMN post_billing_save_info.temporary_save_flg IS '一時保存フラグ';
+COMMENT ON COLUMN post_billing_save_info.subtract  IS '減算';
+COMMENT ON COLUMN post_billing_save_info.last_update_date IS '最終更新日';
+COMMENT ON COLUMN post_billing_save_info.temporary_id IS '一時保存ID';
+COMMENT ON COLUMN post_billing_save_info.last_updater IS '最終更新者';
+COMMENT ON COLUMN post_billing_save_info.pdf_id IS 'pdfID';
