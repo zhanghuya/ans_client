@@ -733,10 +733,12 @@ CREATE TABLE delivery_info (
     conditions_agency VARCHAR(255),
     -- 送付状態
     delivery_status VARCHAR(1),
-    pdf_id   INT
+    pdf_id   INT,
+    month_flg VARCHAR(1)
 
 
 );
+
 
 -- 为表添加注释
 COMMENT ON TABLE delivery_info IS '送付情報テーブル';
@@ -775,6 +777,7 @@ COMMENT ON COLUMN delivery_info.DEL_FLG IS '削除フラグ';
 COMMENT ON COLUMN delivery_info.LAST_UPDATE_DATE IS '最終更新日';
 COMMENT ON COLUMN delivery_info.LAST_UPDATER IS '最終更新者';
 COMMENT ON COLUMN delivery_info.pdf_id   IS 'pdf_id';
+COMMENT ON COLUMN delivery_info.month_flg   IS '月払いフラグ';
 
 
 
